@@ -11,6 +11,8 @@ import Errorpages from "../pages/ErrorPage/ErrorPage"
 import DashBoardLayout from "../Layout/DashBoardLayout"
 import ProtectedRoute from "./ProtectedRoute";
 import Payment from "../pages/Payment/Payment";
+import AddProduct from "../pages/Seller/AddProduct";
+import MyProduct from "../pages/Seller/MyProduct";
 export const router = createBrowserRouter([
     {
         path: '/', errorElement: <Errorpages />, element: <Layout />, children: [
@@ -26,7 +28,9 @@ export const router = createBrowserRouter([
     {
         path: '/dashboard', errorElement: <Errorpages />, element: <DashBoardLayout />, children: [
             { path: '/dashboard', element: <p>Dashboard</p> },
-            { path: '/dashboard/payment', element: <Payment/> },
+            { path: '/dashboard/payment', element: <Payment /> },
+            { path: '/dashboard/add-product', element: <AddProduct /> },
+            { path: '/dashboard/my-products/:id', element: <MyProduct /> },
         ]
     }
 ])

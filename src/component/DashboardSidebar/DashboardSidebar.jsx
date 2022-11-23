@@ -55,7 +55,7 @@ function DashboardSidebar({ toggle }) {
                                 className={({ isActive }) => (isActive ? "active-class" : "non-active-class dark:non-active-class")}>Add Doctor</NavLink>
                         </div>
                     </div>}
-                    {dbUser?.role === 'user' && <div className="space-y-2">
+                    {dbUser?.role === 'buyer' && <div className="space-y-2">
                         <h2 className="text-sm font-semibold tracking-widest uppercase text-black dark:text-gray-400">User Menu</h2>
                         <div className="flex flex-col space-y-1">
                             <NavLink to="/dashboard/my-appointment"
@@ -64,6 +64,17 @@ function DashboardSidebar({ toggle }) {
                             <NavLink to="/dashboard/req-admin"
                                 end
                                 className={({ isActive }) => (isActive ? "active-class" : "non-active-class dark:non-active-class")}>Request Admin</NavLink>
+                        </div>
+                    </div>}
+                    {dbUser?.role === 'seller' && <div className="space-y-2">
+                        <h2 className="text-sm font-semibold tracking-widest uppercase text-black dark:text-gray-400">User Menu</h2>
+                        <div className="flex flex-col space-y-1">
+                            <NavLink to={`/dashboard/my-products/${user?.uid}`}
+                                end
+                                className={({ isActive }) => (isActive ? "active-class" : "non-active-class dark:non-active-class")}>My Products</NavLink>
+                            <NavLink to="/dashboard/add-product"
+                                end
+                                className={({ isActive }) => (isActive ? "active-class" : "non-active-class dark:non-active-class")}>Add Product</NavLink>
                         </div>
                     </div>}
                 </nav>

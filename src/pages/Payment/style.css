@@ -7,18 +7,10 @@ form {
   margin: 0 auto;
 }
 
-label {
-  color: #6b7c93;
-  font-weight: 300;
-  letter-spacing: 0.025em;
-  margin-top: 16px;
-  display: block;
-}
-
 
 input,
 select {
-  display: block;
+  display: flex;
   border: none;
   font-size: 18px;
   margin: 10px 0 20px 0;

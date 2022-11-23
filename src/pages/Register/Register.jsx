@@ -23,8 +23,9 @@ function Register() {
             previewImage = URL.createObjectURL(image);
         }
     }
-    const userRole = (user) => {
-        axios.post('http://localhost:5000/login', user).then((response) => console.log(response))
+    const userRole = (userData,role) => {
+        const user = { ...userData, role: role }
+        axios.post('http://localhost:5000/login', { user }).then((response) => console.log(response))
     }
     const jwtToken = (user, role) => {
         setLoading(true);
@@ -40,8 +41,7 @@ function Register() {
                 localStorage.setItem('your-car-token', data.token)
                 setLoading(false);
                 setUser(user);
-                user['role'] = role;
-                userRole(user);
+                userRole(user, role);
                 toast.success('Successfully Login');
                 navigate(from, { replace: true });
             }
@@ -53,7 +53,7 @@ function Register() {
     }
     const handleFormSubmit = (e) => {
         setLoading(true); // new added , maybe needed to be removed
-        if (!/^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/.test(e.photo[0].name)) {
+        if (!/^([a-zA-Z0-9\s_\\.\-:()])+(.jpg|.jpeg|.gif|.png|.bmp)$/.test(e.photo[0].name)) {
             window.alert('Invalid Image Type');
             return
         }
