@@ -1,0 +1,55 @@
+.active-class {
+    font-weight: bolder;
+    color: #1ab7c5;
+}
+
+.non-active-class {
+    font-weight: bold;
+    color: black;
+}
+.dark .non-active-class {
+    font-weight: bold;
+    color: white;
+}
+
+.smileNav {
+    background-color: #F3F4F6;
+}
+
+.dark .smileNav {
+    background-color: #0f172a;
+}
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #00929f87;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #00929f;
+}
+
+@media screen and (min-width: 770px) {
+.x ul {
+        align-items: center;
+    }
+}
+
+@media screen and (max-width: 760px) {
+    .x a {
+        padding-top: 4px;
+        padding-bottom: 4px;
+    }
+}
