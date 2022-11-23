@@ -30,6 +30,11 @@ function AddProduct() {
       const category = form.category.value
       const marketPrice = form.marketPrice.value
       const resalePrice = form.resalePrice.value
+      const year = form.year.value;
+      const condition = form.condition.value
+      const location = form.location.value
+      const mobile = form.mobile.value
+      const details = form.details.value
       const formData = new FormData;
       const uid = user?.uid
       formData.append('image', image);
@@ -37,12 +42,15 @@ function AddProduct() {
         method: 'POST',
         body: formData
       }).then(res => res.json()).then(data => {
-        const product = { name, model, milage, category, marketPrice, resalePrice, image: data.data.display_url, uid };
+        const product = { name, model, milage, year, category, condition, marketPrice, resalePrice, image: data.data.display_url, location, mobile, details, uid };
         axios.post('http://localhost:5000/add-product', product).then(res => {
           console.log(data)
           if (data.insertedId || data.success) {
             toast.success('Product added successfully');
           }
+          setloading(false)
+        }).catch(error => {
+          console.log(error);
           setloading(false)
         })
       }).catch(error => {
@@ -56,16 +64,31 @@ function AddProduct() {
     <div className='flex flex-col justify-center items-center mt-10'>
       <p className='text-slate-800 dark:text-slate-200'>ADD CAR</p>
       <form action="" onSubmit={handleFormSubmit}>
-        <input required className='bg-gray-50 text-slate-800 dark:text-slate-200 dark:hover:bg-bray-800 dark:bg-gray-700' type="text" placeholder='Name' name='carName' />
-        <input required className='bg-gray-50 text-slate-800 dark:text-slate-200 dark:hover:bg-bray-800 dark:bg-gray-700' type="text" placeholder='Model' name='model' />
-        <label htmlFor="role" className="block dark:text-gray-400 text-slate-800 text-xs uppercase">Select category</label>
-        <select className="select-bordered w-full text-sm bg-gray-50 text-slate-800 dark:text-slate-200 dark:hover:bg-bray-800 dark:bg-gray-700" name='category'>
-          <option defaultChecked value='sedan'>Sedan</option>
-          <option value='microbus'>Microbus</option>
-          <option value='suv'>SUV</option>
-          <option value='luxury-car'>Luxury car</option>
-          <option value='mpv'>MPV</option>
-        </select>
+        <div className='flex gap-2'>
+          <input required className='bg-gray-50 text-slate-800 dark:text-slate-200 dark:hover:bg-bray-800 dark:bg-gray-700' type="text" placeholder='Name' name='carName' />
+          <input required className='bg-gray-50 text-slate-800 dark:text-slate-200 dark:hover:bg-bray-800 dark:bg-gray-700' type="text" placeholder='Model' name='model' />
+          <input required className='bg-gray-50 text-slate-800 dark:text-slate-200 dark:hover:bg-bray-800 dark:bg-gray-700' type="number" placeholder='Purchase Year' name='year' />
+        </div>
+        <div className='flex gap-4 w-full'>
+          <div className='flex-col flex-1'>
+            <label htmlFor="role" className="block dark:text-gray-400 text-slate-800 text-xs uppercase">Select category</label>
+            <select className="select-bordered w-full text-sm bg-gray-50 text-slate-800 dark:text-slate-200 dark:hover:bg-bray-800 dark:bg-gray-700" name='category'>
+              <option defaultChecked value='sedan'>Sedan</option>
+              <option value='microbus'>Microbus</option>
+              <option value='suv'>SUV</option>
+              <option value='luxury-car'>Luxury car</option>
+              <option value='mpv'>MPV</option>
+            </select>
+          </div>
+          <div className='flex-col flex-1'>
+            <label htmlFor="role" className="block dark:text-gray-400 text-slate-800 text-xs uppercase">Select condition</label>
+            <select className="select-bordered w-full text-sm bg-gray-50 text-slate-800 dark:text-slate-200 dark:hover:bg-bray-800 dark:bg-gray-700" name='condition'>
+              <option defaultChecked value='excellent'>Excellent</option>
+              <option value='good'>Good</option>
+              <option value='bad'>Bad</option>
+            </select>
+          </div>
+        </div>
         <input required className='bg-gray-50 text-slate-800 dark:text-slate-200 dark:hover:bg-bray-800 dark:bg-gray-700' type="number" name="milage" placeholder='Milage (km)' />
         <div className="flex flex-col items-center justify-center w-full">
           {previewImage !== null && <div className='relative'>
@@ -83,9 +106,16 @@ function AddProduct() {
             <input id="dropzone-file" type="file" accept='image/*' name='image' className="hidden" onChange={(e) => handleImageChange(e)} />
           </label>}
         </div>
-        <input required className='bg-gray-50 mt-8 text-slate-800 dark:text-slate-200 dark:hover:bg-bray-800 dark:bg-gray-700' type="number" name="marketPrice" placeholder='Market Price (USD)' />
-        <input required className='bg-gray-50 text-slate-800 dark:text-slate-200 dark:hover:bg-bray-800 dark:bg-gray-700' type="number" name="resalePrice" placeholder='Resale Price (USD)' />
-        <button className='bg-amber-300 text-black w-full hover:bg-amber-500 hover:text-white p-2 font-bold text-xs'>{loading ? <div className='flex gap-2 justify-center items-center'>
+        <div className='flex gap-2 mt-2'>
+          <input required className='bg-gray-50 text-slate-800 dark:text-slate-200 dark:hover:bg-bray-800 dark:bg-gray-700' type="number" name="marketPrice" placeholder='Market Price (USD)' />
+          <input required className='bg-gray-50 text-slate-800 dark:text-slate-200 dark:hover:bg-bray-800 dark:bg-gray-700' type="number" name="resalePrice" placeholder='Resale Price (USD)' />
+        </div>
+        <div className='flex gap-2'>
+          <input required className='bg-gray-50 text-slate-800 dark:text-slate-200 dark:hover:bg-bray-800 dark:bg-gray-700' type="text" placeholder='Mobile' name='mobile' />
+          <input required className='bg-gray-50 text-slate-800 dark:text-slate-200 dark:hover:bg-bray-800 dark:bg-gray-700' type="text" placeholder='Location' name='location' />
+        </div>
+        <textarea required name="details" placeholder='Details...' className='w-full bg-gray-50 text-slate-800 dark:text-slate-200 dark:hover:bg-bray-800 dark:bg-gray-700 border-none shadow text-sm mb-2'></textarea>
+        <button className={`bg-amber-300 text-black w-full hover:bg-amber-500 hover:text-white p-2 font-bold text-xs ${loading ? 'disabled' : ''}`}>{loading ? <div className='flex gap-2 justify-center items-center'>
           <img src={spinner} className='w-8' /> <p>Loading...</p>
         </div> : 'ADD CAR'}</button>
       </form>
