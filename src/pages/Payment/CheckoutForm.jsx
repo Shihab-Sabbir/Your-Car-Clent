@@ -25,7 +25,7 @@ const ELEMENT_OPTIONS = {
     },
 };
 
-function CheckoutForm({ price, id}) {
+function CheckoutForm({ price, id }) {
     const elements = useElements();
     const stripe = useStripe();
     const [name, setName] = useState('');
@@ -45,10 +45,19 @@ function CheckoutForm({ price, id}) {
         }).then(res => res.json()).then(data => setSecret(data?.client_secret)).catch(err => console.log(err));
     }, [price])
 
-    const handlePayment = (id) => {
+    const handlePayment = (id, txId) => {
+        const date = new Date();
         fetch(`http://localhost:5000/payment/${id}`, {
-            method:'PATCH'
-        }).then(res => res.json()).then(data => console.log('data : ',data)).catch(err => console.log(err));
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({ txId, date })
+        }).then(res => res.json()).then(data => {
+            if (data.matchedCount) {
+                navigate('/dashboard/my-orders')
+            }
+        }).catch(err => console.log(err));
     }
 
     const handleSubmit = async (event) => {
@@ -94,7 +103,7 @@ function CheckoutForm({ price, id}) {
                 elements.getElement(CardExpiryElement).clear();
                 toast.success(`Payment successful , Transection Id : ${paymentIntent?.id} , Please Reload before next payment`);
                 setProcessing(false);
-                handlePayment(id);
+                handlePayment(id, paymentIntent?.id);
             }
         }
     };

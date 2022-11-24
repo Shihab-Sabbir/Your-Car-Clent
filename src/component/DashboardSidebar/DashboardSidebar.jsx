@@ -49,6 +49,9 @@ function DashboardSidebar({ toggle }) {
                                 <NavLink to="/dashboard/my-orders"
                                     end
                                     className={({ isActive }) => (isActive ? "active-class" : "non-active-class dark:non-active-class")}>My Orders</NavLink>
+                                <NavLink to="/dashboard/my-wishlist"
+                                    end
+                                    className={({ isActive }) => (isActive ? "active-class" : "non-active-class dark:non-active-class")}>Wishlist</NavLink>
                             </div>
                         </div>}
                         {dbUser?.role === 'seller' && <div className="space-y-5">

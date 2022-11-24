@@ -106,7 +106,7 @@ function MyOrders() {
                                             <img className='w-[100px] h-[70px] mt-1 rounded-lg mx-auto' src={order.image} alt="" />
                                         </td>
                                         <td className="py-4 px-6 font-thin text-justify  max-w-fit text-gray-900 dark:text-white">
-                                            <p className='font-semibold text-center'> {order.orderName}</p>
+                                            <p className='font-semibold text-center'> {order.productName}</p>
                                         </td>
                                         <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
                                             <p className='flex gap-2 justify-center items-center'>
@@ -115,7 +115,9 @@ function MyOrders() {
                                         </td>
                                         <td className="py-4 px-6">
                                             <div className='flex justify-center items-center'>
-                                                <Link to='/dashboard/payment' state={{ price: order.price,id:order.carId }} className='btn btn-xs bg-amber-300 text-center' >PAY</Link>
+                                                {order.sold == true ? <Link className='btn btn-xs bg-amber-300 text-center' >PAID</Link>
+                                                    :
+                                                    <Link to='/dashboard/payment' state={{ price: order.price, id: order.carId }} className='btn btn-xs bg-amber-300 text-center' >PAY</Link>}
                                             </div>
                                         </td>
                                     </tr>
