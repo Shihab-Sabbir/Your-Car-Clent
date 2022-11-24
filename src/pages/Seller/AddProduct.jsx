@@ -41,6 +41,7 @@ function AddProduct() {
       const formData = new FormData;
       const sold = false;
       const add = false;
+      const sellerName = user?.displayName;
       const date = format(new Date(), 'PP')
       const uid = user?.uid
       formData.append('image', image);
@@ -48,7 +49,7 @@ function AddProduct() {
         method: 'POST',
         body: formData
       }).then(res => res.json()).then(data => {
-        const product = { name, model, milage, date, year, category, sold, add, condition, marketPrice, resalePrice, image: data.data.display_url, location, mobile, details, uid };
+        const product = { name, model, milage, date, year, category, sold, add, condition, marketPrice, resalePrice, image: data.data.display_url, location, mobile, details, uid, sellerName };
         axios.post('http://localhost:5000/add-product', product).then(res => {
           console.log(data)
           if (data.insertedId || data.success) {
