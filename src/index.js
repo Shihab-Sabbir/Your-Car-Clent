@@ -7,13 +7,19 @@ import { Toaster } from 'react-hot-toast';
 import UserContext from './UserContext/UserContext';
 import { PhotoProvider } from 'react-photo-view';
 import 'react-photo-view/dist/react-photo-view.css';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
+const queryClient = new QueryClient()
 
 root.render(
   <React.StrictMode>
     <UserContext>
       <PhotoProvider>
-        <App />
+        <QueryClientProvider client={queryClient}>
+          <App />
+        </QueryClientProvider>
       </PhotoProvider>
       <Toaster />
     </UserContext>

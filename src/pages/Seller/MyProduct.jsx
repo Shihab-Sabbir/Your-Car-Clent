@@ -109,7 +109,7 @@ function MyProduct() {
                                         </td>
                                         <td className="p-4 max-w-[150px] text-xs font-semibold text-center">
                                             {product.name}
-                                            <img className='w-[100px] h-[70px] mt-1 shadow-lg rounded-lg mx-auto' src={product.image} alt="" />
+                                            <img className='w-[100px] h-[70px] mt-1 rounded-lg mx-auto' src={product.image} alt="" />
                                         </td>
                                         <td className="py-4 px-6 font-thin text-justify  max-w-fit text-gray-900 dark:text-white">
                                             <p className='font-semibold text-center'>{product.category}</p>

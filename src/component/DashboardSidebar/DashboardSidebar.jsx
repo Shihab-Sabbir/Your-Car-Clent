@@ -30,17 +30,7 @@ function DashboardSidebar({ toggle }) {
                         {dark ? <MdOutlineDarkMode className='text-xl text-white  cursor-pointer' title='click to light mode' onClick={handleDark} /> : <MdOutlineLightMode className='text-xl cursor-pointer text-black' title='click to light mode' onClick={handleDark} />}
                     </div>
                 </div>
-                <nav className="space-y-8 p-6 text-sm ">
-                    <div className="space-y-2 text-center">
-                        <img alt="" className="w-12 h-12 rounded-md mx-auto ring-2 ring-offset-1 dark:bg-gray-500 ring-primary ring-offset-gray-800" src={user?.photoURL} />
-                        <p className='text-sm font-semibold tracking-widest uppercase text-black dark:text-gray-400'>{user?.displayName}
-                        </p>
-                        <p className='text-black dark:text-gray-400'>{user?.email}</p>
-                        <p className='text-xs font-semibold tracking-widest uppercase text-black dark:text-gray-400'>
-                            Athority : {dbUser?.role}
-                        </p>
-                    </div>
-                    <hr />
+                <nav className="space-y-8 p-6 text-sm flex flex-col justify-between items-center">
                     <div className='flex justify-center'>
                         {dbUser?.role === 'admin' && <div className="space-y-5">
                             <h2 className="text-sm font-semibold tracking-widest uppercase text-black dark:text-gray-400">Admin Menu</h2>
@@ -75,6 +65,18 @@ function DashboardSidebar({ toggle }) {
                                     className={({ isActive }) => (isActive ? "active-class" : "non-active-class dark:non-active-class")}>Add Product</NavLink>
                             </div>
                         </div>}
+                    </div>
+
+                    <div className="space-y-2 text-center absolute bottom-8 flex items-center gap-4 border-t pt-4 border-amber-500">
+                        <img alt="" className="w-12 h-12 rounded-md mx-auto ring-2 ring-offset-1 dark:bg-gray-500 ring-primary ring-offset-amber-500 mt-[10px]" src={user?.photoURL} />
+                        <div className='flex flex-col items-start'>
+                            <p className='text-sm font-semibold tracking-widest uppercase text-black dark:text-gray-400'>{user?.displayName}
+                            </p>
+                            <p className='text-black dark:text-gray-400'>{user?.email}</p>
+                            <p className='text-xs font-semibold tracking-widest uppercase text-black dark:text-gray-400'>
+                                Athority : {dbUser?.role}
+                            </p>
+                        </div>
                     </div>
                 </nav>
             </aside>
