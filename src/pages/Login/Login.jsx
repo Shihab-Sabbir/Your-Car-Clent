@@ -123,11 +123,11 @@ function Login() {
                     <form noValidate={false} action="" className="space-y-6 ng-untouched ng-pristine ng-valid" onSubmit={handleFormSubmit}>
                         <div className="space-y-1 text-sm">
                             <label htmlFor="Email" className="block dark:text-gray-400">Email</label>
-                            <input required ref={userEmail} type="email" name="email" id="Email" placeholder="Email" className="w-full px-4 py-3  dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 focus:dark:border-violet-400" />
+                            <input required ref={userEmail} type="email" name="email" id="Email" placeholder="Email" className="w-full px-4 py-3  dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 text-slate-800 focus:dark:border-violet-400" />
                         </div>
                         <div className="space-y-1 text-sm">
                             <label htmlFor="password" className="block dark:text-gray-400">Password</label>
-                            <input required type="password" name="password" id="password" placeholder="Password" className="w-full px-4 py-3  dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 focus:dark:border-violet-400" />
+                            <input required type="password" name="password" id="password" placeholder="Password" className="w-full px-4 py-3 text-slate-800  dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 focus:dark:border-violet-400" />
                             <div className="flex justify-end text-xs dark:text-gray-400">
                                 <button rel="noopener noreferrer" onClick={handlePasswordReset}>Forgot Password?</button>
                             </div>

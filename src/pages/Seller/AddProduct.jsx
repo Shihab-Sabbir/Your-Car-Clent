@@ -7,10 +7,13 @@ import { ImCross } from 'react-icons/im'
 import { PhotoView } from 'react-photo-view';
 import { AuthContext } from '../../UserContext/UserContext';
 import spinner from '../../asset/smallSpiner.gif'
+import { format } from 'date-fns';
+import { useNavigate } from 'react-router-dom';
 function AddProduct() {
   const [previewImage, setPreviewImage] = useState(null);
   const [image, setImage] = useState(null)
   const [loading, setloading] = useState(false)
+  const navigate = useNavigate()
   const handleImageChange = e => {
     setImage(e.target.files[0]);
     setPreviewImage(URL.createObjectURL(e.target.files[0]));
@@ -36,17 +39,21 @@ function AddProduct() {
       const mobile = form.mobile.value
       const details = form.details.value
       const formData = new FormData;
+      const sold = false;
+      const add = false;
+      const date = format(new Date(), 'PP')
       const uid = user?.uid
       formData.append('image', image);
       fetch(`https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_Imgbb_Key}`, {
         method: 'POST',
         body: formData
       }).then(res => res.json()).then(data => {
-        const product = { name, model, milage, year, category, condition, marketPrice, resalePrice, image: data.data.display_url, location, mobile, details, uid };
+        const product = { name, model, milage, date, year, category, sold, add, condition, marketPrice, resalePrice, image: data.data.display_url, location, mobile, details, uid };
         axios.post('http://localhost:5000/add-product', product).then(res => {
           console.log(data)
           if (data.insertedId || data.success) {
             toast.success('Product added successfully');
+            navigate('/dashboard/my-products')
           }
           setloading(false)
         }).catch(error => {
