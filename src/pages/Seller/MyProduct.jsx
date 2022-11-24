@@ -65,6 +65,11 @@ function MyProduct() {
         });
     }
 
+    const handleAddvertise = (info, id) => {
+        setDataLoading(true)
+        axios.post(`http://localhost:5000/advertise/${id}`, { info }).then(res => { toast.success(res.data); setUpdateState(!updateState); setDataLoading(false) }).catch(err => { console.log(err) })
+}
+
     return (
         <div className='w-full lg:w-[1176px] p-2 mx-auto pt-10'>
             <Helmet>
@@ -112,7 +117,7 @@ function MyProduct() {
                                             <img className='w-[100px] h-[70px] mt-1 rounded-lg mx-auto' src={product.image} alt="" />
                                         </td>
                                         <td className="py-4 px-6 font-thin text-justify  max-w-fit text-gray-900 dark:text-white">
-                                            <p className='font-semibold text-center'>{product.category}</p>
+                                            <p className='font-semibold text-center uppercase'>{product.category}</p>
                                         </td>
 
                                         <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
@@ -121,15 +126,12 @@ function MyProduct() {
                                             </p>
                                         </td>
                                         <td className="py-4 px-6">
-                                            <div className='flex justify-center items-center'>
-                                                <select className='w-[70px] text-xs font-bold text-center m-0 p-1' name="status">
-                                                    <option className='text-xs text-center' value="not-sold" defaultChecked>UNSOLD</option>
-                                                    <option className='text-xs text-center' value="sold">SOLD</option>
-                                                </select>
-                                            </div>
+                                            <p className='text-xs font-bold m-0 p-1 text-center'>
+                                                {product.sold == true ? 'SOLD':'AVAILABE'}
+                                            </p>
                                         </td>
                                         <td className="py-4 px-6">
-                                            <input type="checkbox" className='m-0 p-0 w-[15px]' name="" id="" />
+                                            <input type="checkbox" className='cursor-pointer' checked={product.add == true} name="" id="" onChange={() => handleAddvertise(product, product._id)} />
                                         </td>
                                         <td className="py-4 px-2">
                                             <label htmlFor="my-modal-2" className="text-sm cursor-pointer text-[#00ACBD]">Edit</label>

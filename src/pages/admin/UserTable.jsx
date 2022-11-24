@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from 'react'
 import { confirmAlert } from 'react-confirm-alert';
 import toast from 'react-hot-toast';
@@ -24,6 +25,11 @@ function UserTable({ data, updateState, setUpdateState }) {
             ]
         });
     }
+
+    const handleVerify = uid => {
+        axios.post(`http://localhost:5000/verify-seller/${uid}`).then(res => { toast.success(res.data); setUpdateState(!updateState) }).catch(err => { console.log(err) })
+    }
+
     return (
         <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
             {(data?.length > 0) ?
@@ -71,7 +77,7 @@ function UserTable({ data, updateState, setUpdateState }) {
 
                                     <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
                                         <p className='flex gap-2 justify-center items-center'>
-                                            {user?.role === 'seller' ? (user?.verify ? 'Seller Verified' : <button>Verify Seller Now</button>) : 'N/A'}
+                                            {user?.role === 'seller' ? (user?.verify ? <button onClick={() => handleVerify(user?.uid)}>Verified Seller</button> : <button onClick={() => handleVerify(user?.uid)}>Verify Seller Now</button>) : 'N/A'}
                                         </p>
                                     </td>
                                     <td className="py-4 px-6">

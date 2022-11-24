@@ -6,15 +6,16 @@ import UserTable from './UserTable';
 
 function AllSellers() {
     const [sellers, setSellers] = useState([]);
+    const [updateState, setUpdateState] = useState(false);
     useEffect(() => {
         axios.get('http://localhost:5000/users', {
             params: { role: 'seller' }
         }).then(res => setSellers(res.data)).catch(err => console.log(err))
-    }, [])
+    }, [updateState])
     console.log(sellers)
     return (
         <div>
-            <UserTable data={sellers} />
+            <UserTable data={sellers} updateState={updateState} setUpdateState={setUpdateState} />
         </div>
     )
 }

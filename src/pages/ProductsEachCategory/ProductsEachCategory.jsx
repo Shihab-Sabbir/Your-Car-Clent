@@ -88,7 +88,7 @@ function ProductsEachCategory() {
                                             </p>
                                             <div>
                                                 {sellers?.map(seller => {
-                                                    if (seller.uid === item?.uid) {
+                                                    if ((seller.uid === item?.uid) && seller?.verify == true) {
                                                         return <div className='bg-sky-400 rounded-full'>
                                                             <span className='text-white'><TiTick /></span>
                                                         </div>

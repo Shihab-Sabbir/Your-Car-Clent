@@ -75,7 +75,7 @@ function Wishlist() {
                                             </p>
                                             <div>
                                                 {sellers?.map(seller => {
-                                                    if (seller.uid === item.item?.uid) {
+                                                    if ((seller.uid === item.item?.uid) && seller?.verify == true) {
                                                         return <div className='bg-sky-400 rounded-full'>
                                                             <span className='text-white'><TiTick /></span>
                                                         </div>
