@@ -123,7 +123,7 @@ function AddProduct() {
           <input required className='bg-gray-50 text-slate-800 dark:text-slate-200 dark:hover:bg-bray-800 dark:bg-gray-700' type="text" placeholder='Location' name='location' />
         </div>
         <textarea required name="details" placeholder='Details...' className='w-full bg-gray-50 text-slate-800 dark:text-slate-200 dark:hover:bg-bray-800 dark:bg-gray-700 border-none shadow text-sm mb-2'></textarea>
-        <button className={`bg-amber-300 text-black w-full hover:bg-amber-500 hover:text-white p-2 font-bold text-xs ${loading ? 'disabled' : ''}`}>{loading ? <div className='flex gap-2 justify-center items-center'>
+        <button className={`bg-amber-300 text-black w-full hover:bg-amber-500 hover:text-white p-2 font-bold text-xs ${loading ? 'btn-disabled' : ''}`}>{loading ? <div className='flex gap-2 justify-center items-center'>
           <img src={spinner} className='w-8' /> <p>Loading...</p>
         </div> : 'ADD CAR'}</button>
       </form>

@@ -3,13 +3,17 @@ import axios from 'axios';
 import { differenceInYears, format } from 'date-fns';
 import React from 'react'
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { TiTick } from 'react-icons/ti'
+import { useEffect } from 'react';
+import BookingModal from '../../component/BookingModal/BookingModal';
 
 function ProductsEachCategory() {
     const location = useLocation();
     const category = location.state?.data;
     const [sellers, setsellers] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [showModal, setShowModal] = useState(false)
     const { isLoading, error, data } = useQuery({
         queryKey: ['category'],
         queryFn: () =>
@@ -18,9 +22,12 @@ function ProductsEachCategory() {
             )
     })
 
-    axios.get(`http://localhost:5000/users?role=seller`).then(data => setsellers(data.data))
+    useEffect(() => {
+        axios.get(`http://localhost:5000/users?role=seller`).then(data => { setsellers(data.data); setLoading(false) })
+    }, [])
 
-    if (isLoading) return 'Loading...'
+
+    if (isLoading || loading) return 'Loading...'
 
     if (error) return 'An error has occurred: ' + error.message;
     return (
@@ -29,7 +36,7 @@ function ProductsEachCategory() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     {
                         data?.map(item =>
-                            <Link to="/product" state={{ data: item?.category }} key={item._id} className='w-[320px]'>
+                            <div key={item._id} className='w-[320px]'>
                                 <div className='border relative'>
                                     <img src={item.image} className='w-[300px] h-[250px]' alt="" />
                                     <button className='absolute top-2 right-2'>wish</button>
@@ -67,12 +74,14 @@ function ProductsEachCategory() {
                                             </div>
                                         </div>
                                         <div className='flex justify-between'>
-                                            <button className='my-2 btn btn-sm bg-amber-400 border-0 text-slate-100 shadow-md dark:hover:border-white dark:hover:border'>Book now</button>
-                                            <button className='my-2'>Details</button>
+                                            <label
+                                                htmlFor="booking-modal"
+                                                className='my-2 btn btn-sm bg-amber-400 border-0 text-slate-100 shadow-md dark:hover:border-white dark:hover:border' onClick={() => setShowModal(true)}>Book now</label>
+                                            {showModal && <BookingModal item={item} setShowModal={setShowModal} />}
                                         </div>
                                     </div>
                                 </div>
-                            </Link>
+                            </div>
                         )
                     }
                 </div>

@@ -33,7 +33,7 @@ function UserContext({ children }) {
     return (
         <AuthContext.Provider value={userinfo}>
             <Helmet>
-                <title>Smile Dental Service</title>
+                <title>Your Car</title>
             </Helmet>
             {children}
         </AuthContext.Provider>
