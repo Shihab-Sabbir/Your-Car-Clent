@@ -14,10 +14,14 @@
 
 .smileNav {
     background-color: #F3F4F6;
+     padding-top: 0;
+     padding-bottom: 0;
 }
 
 .dark .smileNav {
     background-color: #0f172a;
+     padding-top: 0;
+     padding-bottom: 0;
 }
 
 

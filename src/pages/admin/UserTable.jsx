@@ -34,7 +34,10 @@ function UserTable({ data, updateState, setUpdateState }) {
                                 Delete
                             </th>
                             <th scope="col" className="py-3 text-[#00ACBD] px-6 text-center">
-                                Profile
+                                Profile Name
+                            </th>
+                            <th scope="col" className="py-3 text-[#00ACBD] px-6 text-center">
+                                Profile Image
                             </th>
                             <th scope="col" className="py-3 text-[#00ACBD] px-6 text-center">
                                 Email
@@ -56,9 +59,11 @@ function UserTable({ data, updateState, setUpdateState }) {
                                     }}>
                                         Remove
                                     </td>
-                                    <td className="p-4 max-w-[150px] text-xs font-semibold text-center">
+                                    <td className="p-4 max-w-[150px] font-semibold text-center">
                                         {user.displayName}
-                                        <img className='w-[100px] h-[70px] mt-1 shadow-lg rounded-lg mx-auto' src={user.photoURL} alt="" />
+                                    </td>
+                                    <td className="p-4 max-w-[150px] text-xs font-semibold text-center">
+                                        <img className='w-[100px] h-[90px] mt-1 rounded-lg mx-auto' src={user.photoURL} alt="" />
                                     </td>
                                     <td className="py-4 px-6 font-thin text-justify  max-w-fit text-gray-900 dark:text-white">
                                         <p className='font-semibold text-center'>{user.email}</p>
@@ -66,7 +71,7 @@ function UserTable({ data, updateState, setUpdateState }) {
 
                                     <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
                                         <p className='flex gap-2 justify-center items-center'>
-                                            {user?.role === 'seller' ? (user?.verify ? 'Seller Verified' : <button>Verify Seller</button>) : 'N/A'}
+                                            {user?.role === 'seller' ? (user?.verify ? 'Seller Verified' : <button>Verify Seller Now</button>) : 'N/A'}
                                         </p>
                                     </td>
                                     <td className="py-4 px-6">
