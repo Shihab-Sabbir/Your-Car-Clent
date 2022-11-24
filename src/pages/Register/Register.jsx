@@ -68,13 +68,13 @@ function Register() {
         }).then(res => res.json()).then(data => {
             createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
-                    jwtToken(auth.currentUser, role)
                     updateProfile(auth.currentUser, {
                         displayName: e.username,
                         photoURL: data.data.display_url
                     }).then(() => {
                         auth.currentUser.photoURL = data.data.display_url;
                         setUser(auth.currentUser);
+                        jwtToken(auth.currentUser, role)
                         navigate(from, { replace: true });
                         toast.success('Successfully registered');
                     }).catch((error) => {
