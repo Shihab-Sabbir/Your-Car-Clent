@@ -17,7 +17,7 @@ function DashboardSidebar({ toggle }) {
     }, [user])
 
     function handleDark() {
-        localStorage.setItem('smile-theme', JSON.stringify(!dark));
+        localStorage.setItem('your-car-theme', JSON.stringify(!dark));
         setDark(!dark);
     }
 
@@ -44,14 +44,11 @@ function DashboardSidebar({ toggle }) {
                             </div>
                         </div>}
                         {dbUser?.role === 'buyer' && <div className="space-y-5">
-                            <h2 className="text-sm font-semibold tracking-widest uppercase text-black dark:text-gray-400">User Menu</h2>
+                            <h2 className="text-sm font-semibold tracking-widest uppercase text-black dark:text-gray-400 text-center">Buyer Menu</h2>
                             <div className="flex flex-col space-y-4 justify-center items-center">
-                                <NavLink to="/dashboard/my-appointment"
+                                <NavLink to="/dashboard/my-orders"
                                     end
-                                    className={({ isActive }) => (isActive ? "active-class" : "non-active-class dark:non-active-class")}>My Appointments</NavLink>
-                                <NavLink to="/dashboard/req-admin"
-                                    end
-                                    className={({ isActive }) => (isActive ? "active-class" : "non-active-class dark:non-active-class")}>Request Admin</NavLink>
+                                    className={({ isActive }) => (isActive ? "active-class" : "non-active-class dark:non-active-class")}>My Orders</NavLink>
                             </div>
                         </div>}
                         {dbUser?.role === 'seller' && <div className="space-y-5">

@@ -10,7 +10,7 @@ function Header() {
     const { dark, setDark, user, handleSearch } = useContext(AuthContext);
     const navigate = useNavigate();
     function handleDark() {
-        localStorage.setItem('smile-theme', JSON.stringify(!dark));
+        localStorage.setItem('your-car-theme', JSON.stringify(!dark));
         setDark(!dark);
     }
     return (
@@ -73,7 +73,7 @@ function Header() {
                     >
                         Dashboard
                     </NavLink>
-                    
+
                     <NavLink
                         to="/blog"
                         end

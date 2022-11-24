@@ -25,7 +25,7 @@ const ELEMENT_OPTIONS = {
     },
 };
 
-function CheckoutForm() {
+function CheckoutForm({ price, id}) {
     const elements = useElements();
     const stripe = useStripe();
     const [name, setName] = useState('');
@@ -36,7 +36,6 @@ function CheckoutForm() {
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
     useEffect(() => {
-        const price = 900;
         fetch('http://localhost:5000/payment-intents', {
             method: 'POST',
             headers: {
@@ -44,7 +43,13 @@ function CheckoutForm() {
             },
             body: JSON.stringify({ price })
         }).then(res => res.json()).then(data => setSecret(data?.client_secret)).catch(err => console.log(err));
-    }, [])
+    }, [price])
+
+    const handlePayment = (id) => {
+        fetch(`http://localhost:5000/payment/${id}`, {
+            method:'PATCH'
+        }).then(res => res.json()).then(data => console.log('data : ',data)).catch(err => console.log(err));
+    }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -88,14 +93,15 @@ function CheckoutForm() {
                 elements.getElement(CardCvcElement).clear();
                 elements.getElement(CardExpiryElement).clear();
                 toast.success(`Payment successful , Transection Id : ${paymentIntent?.id} , Please Reload before next payment`);
-                setProcessing(false)
+                setProcessing(false);
+                handlePayment(id);
             }
         }
     };
 
     return (
         <div className='flex px-1 flex-col justify-center h-full relative'>
-            <button className='absolute -top-5 md:top-[0] left-4 mb-4 btn btn-xs w-fit dark:bg-slate-200 dark:text-slate-900 text-slate-200 bg-slate-900 shadow  border-none' onClick={() => navigate('/dashboard')}>Back</button>
+            <button className='absolute -top-5 md:top-[0] left-4 mb-4 btn btn-xs w-fit dark:bg-slate-200 dark:text-slate-900 text-slate-800 hover:text-slate-200 bg-amber-300 shadow  border-none' onClick={() => navigate('/dashboard')}>Back</button>
             <p className='text-center text-xl mb-4 font-bold'>Stripe Payment</p>
             <form onSubmit={handleSubmit} className='border p-3 max-w-[320px] sm:max-w-[400px] shadow-lg bg-transparent dark:bg-slate-800 dark:shadow-sky-800' >
                 <label className='text-black dark:text-white ' htmlFor="name">User Name</label>
@@ -153,7 +159,7 @@ function CheckoutForm() {
                     className='hidden'
                 />
 
-                <button type="submit" className='btn text-black dark:border-white dark:text-white hover:text-white' disabled={!stripe || !secret || processing}>
+                <button type="submit" className='btn text-black dark:border-white bg-amber-300 dark:border border-0 dark:hover:text-white hover:text-white' disabled={!stripe || !secret || processing || !price || !id}>
                     Pay Now
                 </button>
             </form>
