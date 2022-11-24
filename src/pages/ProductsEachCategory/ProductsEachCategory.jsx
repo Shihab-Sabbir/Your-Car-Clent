@@ -1,22 +1,25 @@
 import { useQuery } from '@tanstack/react-query'
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation} from 'react-router-dom';
 
-function Category() {
+function ProductsEachCategory() {
+    const location = useLocation();
+    const category = location.state?.data;
+
     const { isLoading, error, data } = useQuery({
         queryKey: ['category'],
         queryFn: () =>
-            fetch('http://localhost:5000/category').then(res =>
+            fetch(`http://localhost:5000/product/${category}`).then(res =>
                 res.json()
             )
     })
+    
     if (isLoading) return 'Loading...'
 
     if (error) return 'An error has occurred: ' + error.message;
 
     return (
-        <div className='mt-20'>
-            <p>Category</p>
+        <div>
             <div className='flex justify-center items-center'>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     {
@@ -33,4 +36,4 @@ function Category() {
     )
 }
 
-export default Category;
+export default ProductsEachCategory;

@@ -4,7 +4,7 @@ function Banner() {
     return (
         <div>
             <div className='relative'>
-                <img src={image} className='lg:h-[650px] mx-auto opacity-75' alt="" />
+                <img src={image} className='lg:h-[650px] mx-auto brightness-110' alt="" />
                 <div className='absolute left-20 top-32 lg:block hidden'>
                     <p className='text-4xl text-amber-400 font-bold my-4'>Buy Your car</p>
                     <p className='text-2xl text-black dark:text-slate-300'>Quality we guarantee</p>

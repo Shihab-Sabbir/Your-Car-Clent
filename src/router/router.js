@@ -15,6 +15,7 @@ import AddProduct from "../pages/Seller/AddProduct";
 import MyProduct from "../pages/Seller/MyProduct";
 import AllSellers from "../pages/admin/AllSellers";
 import AllBuyers from "../pages/admin/AllBuyers";
+import ProductsEachCategory from "../pages/ProductsEachCategory/ProductsEachCategory";
 export const router = createBrowserRouter([
     {
         path: '/', errorElement: <Errorpages />, element: <Layout />, children: [
@@ -25,6 +26,7 @@ export const router = createBrowserRouter([
             { path: '/profile', element: <Profile /> },
             { path: '/blog', element: <Blog /> },
             { path: '/search', element: <Search /> },
+            { path: '/product', element: <ProductsEachCategory /> },
         ]
     },
     {
