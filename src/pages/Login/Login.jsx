@@ -20,7 +20,7 @@ function Login() {
 
     const userRole = (userData) => {
         const user = { ...userData, role: 'buyer' }
-        axios.post('http://localhost:5000/login', { user }).then((response) => console.log(response))
+        axios.post('http://localhost:5000/register', { user }).then((response) => console.log(response))
     }
 
     const jwtToken = (user) => {

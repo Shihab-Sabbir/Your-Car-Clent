@@ -16,14 +16,16 @@ function MyProduct() {
     const [products, setProducts] = useState([]);
     const [dataLoading, setDataLoading] = useState(true);
     const { user, loading, updateState, setUpdateState, auth, setUser } = useContext(AuthContext);
+
     const navigate = useNavigate()
+
     useEffect(() => {
         axios.get(`http://localhost:5000/my-products/${user?.uid}`).then(res => { setProducts(res.data); setDataLoading(false) }).catch(err => {
             console.log(err);
             setDataLoading(false);
         })
-        console.log(products)
     }, [updateState, loading, user])
+
     if (dataLoading) {
         return (
             <div className=" rounded relative mt-[100px]">
@@ -50,11 +52,16 @@ function MyProduct() {
                 {
                     label: 'Yes',
                     onClick: () => {
-                        fetch(` https://assignment-11-five.vercel.app/product/${id}`, {
-                            method: 'DELETE'
+                        setDataLoading(true)
+                        fetch(`http://localhost:5000/delete-product/${id}`, {
+                            method: 'DELETE',
+                            headers: {
+                                authorization: `Bearer ${localStorage.getItem('your-car-token')}`
+                            }
                         }).then(res => res.json()).then(data => {
-                            if (data.deletedCount > 0) { toast.success('product deleted'); setUpdateState(!updateState); }
-                        });
+                            if (data.deletedCount > 0) { toast.success('product deleted'); setUpdateState(!updateState); setDataLoading(false) }
+                            console.log(data)
+                        }).catch(err => { console.log(err); setDataLoading(false) });
                     }
                 },
                 {

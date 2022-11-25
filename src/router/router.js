@@ -19,6 +19,7 @@ import ProductsEachCategory from "../pages/ProductsEachCategory/ProductsEachCate
 import MyOrders from "../pages/Buyer/MyOrders";
 import Wishlist from "../pages/Buyer/Wishlist";
 import DashboardWellcome from "../pages/DashboardWellcome/DashboardWellcome";
+import AdminRoute from "./AdminRoute";
 export const router = createBrowserRouter([
     {
         path: '/', errorElement: <Errorpages />, element: <Layout />, children: [
@@ -34,14 +35,14 @@ export const router = createBrowserRouter([
     },
     {
         path: '/dashboard', errorElement: <Errorpages />, element: <ProtectedRoute><DashBoardLayout /></ProtectedRoute>, children: [
-            { path: '/dashboard', element: <DashboardWellcome/> },
+            { path: '/dashboard', element: <DashboardWellcome /> },
             { path: '/dashboard/payment', element: <Payment /> },
             { path: '/dashboard/add-product', element: <AddProduct /> },
             { path: '/dashboard/my-products', element: <MyProduct /> },
             { path: '/dashboard/my-wishlist', element: <Wishlist /> },
             { path: '/dashboard/my-orders', element: <MyOrders /> },
-            { path: '/dashboard/all-sellers', element: <AllSellers /> },
-            { path: '/dashboard/all-buyers', element: <AllBuyers /> },
+            { path: '/dashboard/all-sellers', element: <AdminRoute><AllSellers /></AdminRoute> },
+            { path: '/dashboard/all-buyers', element: <AdminRoute><AllBuyers /></AdminRoute> },
         ]
     }
 ])

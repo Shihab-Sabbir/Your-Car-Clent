@@ -25,7 +25,7 @@ function Register() {
     }
     const userRole = (userData, role) => {
         const user = { ...userData, role: role }
-        axios.post('http://localhost:5000/login', { user }).then((response) => console.log(response))
+        axios.post('http://localhost:5000/register', { user }).then((response) => console.log(response))
     }
     const jwtToken = (user, role) => {
         setLoading(true);

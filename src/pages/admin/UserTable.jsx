@@ -1,37 +1,29 @@
 import axios from 'axios';
 import React from 'react'
+import { useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import toast from 'react-hot-toast';
+import { useLocation } from 'react-router-dom';
+import { handleDeleteUser } from '../../Utility/userDelete';
 
 function UserTable({ data, updateState, setUpdateState }) {
-    const handleDelete = (id) => {
-        confirmAlert({
-            message: 'Are you sure to remove this product ?',
-            buttons: [
-                {
-                    label: 'Yes',
-                    onClick: () => {
-                        fetch(` https://assignment-11-five.vercel.app/product/${id}`, {
-                            method: 'DELETE'
-                        }).then(res => res.json()).then(data => {
-                            if (data.deletedCount > 0) { toast.success('product deleted'); setUpdateState(!updateState); }
-                        });
-                    }
-                },
-                {
-                    label: 'No',
-                    onClick: () => { }
-                }
-            ]
-        });
+    const [dataLoading, setDataLoading] = useState(false);
+    const location = useLocation();
+
+    const handleDelete = (id,uid) => {
+        setDataLoading(true)
+        handleDeleteUser(id, setUpdateState, setDataLoading, updateState,uid)
     }
 
     const handleVerify = uid => {
-        axios.post(`http://localhost:5000/verify-seller/${uid}`).then(res => { toast.success(res.data); setUpdateState(!updateState) }).catch(err => { console.log(err) })
+        setDataLoading(true)
+        axios.post(`http://localhost:5000/verify-seller/${uid}`).then(res => { toast.success(res.data); setUpdateState(!updateState); setDataLoading(false) }).catch(err => { console.log(err); setDataLoading(false) })
     }
-
+    if (dataLoading) {
+        return <p>Loading...</p>
+    }
     return (
-        <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
+        <div className="overflow-x-auto relative shadow-md sm:rounded-lg p-1 lg:p-2 xl:p-4">
             {(data?.length > 0) ?
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -48,20 +40,20 @@ function UserTable({ data, updateState, setUpdateState }) {
                             <th scope="col" className="py-3 text-amber-400 px-6 text-center">
                                 Email
                             </th>
-                            <th scope="col" className="py-3 text-amber-400 px-6 text-center">
+                            {location.pathname.split('/')[2] === 'all-sellers' && <th scope="col" className="py-3 text-amber-400 px-6 text-center">
                                 Verify
-                            </th>
-                            <th scope="col" className="py-3 text-amber-400 px-6 text-center">
-                                Advertise
-                            </th>
+                            </th>}
+                            {location.pathname.split('/')[2] === 'all-sellers' && <th scope="col" className="py-3 text-amber-400 px-6 text-center">
+                                Report
+                            </th>}
                         </tr>
                     </thead>
                     <tbody>
                         {
                             data?.map(user =>
-                                <tr key={user._id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center p-1">
+                                <tr key={user.uid} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center p-1">
                                     <td className="font-medium cursor-pointer text-red-600 dark:text-red-500 hover:underline" onClick={() => {
-                                        handleDelete(user._id)
+                                        handleDelete(user._id,user?.uid)
                                     }}>
                                         Remove
                                     </td>
@@ -75,19 +67,16 @@ function UserTable({ data, updateState, setUpdateState }) {
                                         <p className='font-semibold text-center'>{user.email}</p>
                                     </td>
 
-                                    <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
+                                    {location.pathname.split('/')[2] === 'all-sellers' && <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
                                         <p className='flex gap-2 justify-center items-center'>
-                                            {user?.role === 'seller' ? (user?.verify ? <button onClick={() => handleVerify(user?.uid)}>Verified Seller</button> : <button onClick={() => handleVerify(user?.uid)}>Verify Seller Now</button>) : 'N/A'}
+                                            {user?.verify ? <button onClick={() => handleVerify(user?.uid)}>Verified</button> : <button onClick={() => handleVerify(user?.uid)}>Verify Seller Now</button>}
                                         </p>
-                                    </td>
-                                    <td className="py-4 px-6">
-                                        <div className='flex justify-center items-center'>
-                                            <select className='w-[70px] text-xs font-bold text-center m-0 p-1' name="status">
-                                                <option className='text-xs text-center' value="not-sold" defaultChecked>UNSOLD</option>
-                                                <option className='text-xs text-center' value="sold">SOLD</option>
-                                            </select>
-                                        </div>
-                                    </td>
+                                    </td>}
+                                    {location.pathname.split('/')[2] === 'all-sellers' && <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
+                                        <p className='flex gap-2 justify-center items-center'>
+                                            {user?.role === 'seller' ? (user?.verify ? <button onClick={() => handleVerify(user?.uid)}>Verified</button> : <button onClick={() => handleVerify(user?.uid)}>Verify Seller Now</button>) : 'N/A'}
+                                        </p>
+                                    </td>}
                                 </tr>
                             )
                         }

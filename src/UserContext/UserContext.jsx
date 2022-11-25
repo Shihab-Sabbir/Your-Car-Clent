@@ -29,8 +29,8 @@ function UserContext({ children }) {
     useEffect(() => {
         fetch(`http://localhost:5000/user/${user?.uid}`)
             .then(res => res.json())
-            .then(data => setDbUser(data))
-            .catch(err => console.log(err))
+            .then(data => { setDbUser(data)})
+            .catch(err => { console.log(err)})
     }, [user])
 
     function handleSearch(e) {
