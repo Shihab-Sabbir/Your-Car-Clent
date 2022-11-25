@@ -16,7 +16,7 @@ function Logout() {
             if (user?.uid) {
                 setUser(null);
                 toast.success('Logout Successful');
-                localStorage.removeItem('assignment-11_Token')
+                localStorage.removeItem('your-car-token')
                 navigate('/login');
             }
             else {
@@ -35,7 +35,7 @@ function Logout() {
                 </Helmet>
                 <img src={logoutAmin} className='w-1/2' alt="" />
                 <div>
-                    <button type="button" className="uppercase text-xs font-bold shadow-lg p-2 px-4 rounded-md bg-[#00ACBD] text-white " onClick={logOut}>Logout</button>
+                    <button type="button" className="uppercase text-xs font-bold shadow-lg p-2 px-4 rounded-md bg-amber-400 text-white " onClick={logOut}>Logout</button>
                 </div>
             </div>
         </div>

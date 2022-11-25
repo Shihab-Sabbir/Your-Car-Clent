@@ -36,22 +36,22 @@ function UserTable({ data, updateState, setUpdateState }) {
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
-                            <th scope="col" className="py-3 text-[#00ACBD]  px-6 text-center">
+                            <th scope="col" className="py-3 text-amber-400  px-6 text-center">
                                 Delete
                             </th>
-                            <th scope="col" className="py-3 text-[#00ACBD] px-6 text-center">
+                            <th scope="col" className="py-3 text-amber-400 px-6 text-center">
                                 Profile Name
                             </th>
-                            <th scope="col" className="py-3 text-[#00ACBD] px-6 text-center">
+                            <th scope="col" className="py-3 text-amber-400 px-6 text-center">
                                 Profile Image
                             </th>
-                            <th scope="col" className="py-3 text-[#00ACBD] px-6 text-center">
+                            <th scope="col" className="py-3 text-amber-400 px-6 text-center">
                                 Email
                             </th>
-                            <th scope="col" className="py-3 text-[#00ACBD] px-6 text-center">
+                            <th scope="col" className="py-3 text-amber-400 px-6 text-center">
                                 Verify
                             </th>
-                            <th scope="col" className="py-3 text-[#00ACBD] px-6 text-center">
+                            <th scope="col" className="py-3 text-amber-400 px-6 text-center">
                                 Advertise
                             </th>
                         </tr>

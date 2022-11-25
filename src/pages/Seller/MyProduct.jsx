@@ -68,7 +68,7 @@ function MyProduct() {
     const handleAddvertise = (info, id) => {
         setDataLoading(true)
         axios.post(`http://localhost:5000/advertise/${id}`, { info }).then(res => { toast.success(res.data); setUpdateState(!updateState); setDataLoading(false) }).catch(err => { console.log(err) })
-}
+    }
 
     return (
         <div className='w-full lg:w-[1176px] p-2 mx-auto pt-10'>
@@ -80,25 +80,25 @@ function MyProduct() {
                     <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
-                                <th scope="col" className="py-3 text-[#00ACBD]  px-6 text-center">
+                                <th scope="col" className="py-3 text-amber-400  px-6 text-center">
                                     Delete
                                 </th>
-                                <th scope="col" className="py-3 text-[#00ACBD] px-6 text-center">
+                                <th scope="col" className="py-3 text-amber-400 px-6 text-center">
                                     Product
                                 </th>
-                                <th scope="col" className="py-3 text-[#00ACBD] px-6 text-center">
+                                <th scope="col" className="py-3 text-amber-400 px-6 text-center">
                                     Category
                                 </th>
-                                <th scope="col" className="py-3 text-[#00ACBD] px-6 text-center">
+                                <th scope="col" className="py-3 text-amber-400 px-6 text-center">
                                     Price
                                 </th>
-                                <th scope="col" className="py-3 text-[#00ACBD] px-6 text-center">
+                                <th scope="col" className="py-3 text-amber-400 px-6 text-center">
                                     Status
                                 </th>
-                                <th scope="col" className="py-3 text-[#00ACBD] px-6 text-center">
+                                <th scope="col" className="py-3 text-amber-400 px-6 text-center">
                                     Advertise
                                 </th>
-                                <th scope="col" className="py-3 text-[#00ACBD] px-2 text-center">
+                                <th scope="col" className="py-3 text-amber-400 px-2 text-center">
                                     Edit
                                 </th>
                             </tr>
@@ -127,14 +127,14 @@ function MyProduct() {
                                         </td>
                                         <td className="py-4 px-6">
                                             <p className='text-xs font-bold m-0 p-1 text-center'>
-                                                {product.sold == true ? 'SOLD':'AVAILABE'}
+                                                {product.sold == true ? 'SOLD' : 'AVAILABE'}
                                             </p>
                                         </td>
                                         <td className="py-4 px-6">
                                             <input type="checkbox" className='cursor-pointer' checked={product.add == true} name="" id="" onChange={() => handleAddvertise(product, product._id)} />
                                         </td>
                                         <td className="py-4 px-2">
-                                            <label htmlFor="my-modal-2" className="text-sm cursor-pointer text-[#00ACBD]">Edit</label>
+                                            <label htmlFor="my-modal-2" className="text-sm cursor-pointer text-amber-400">Edit</label>
                                             {/* <Editproduct tile={product.serviceName} producttitle={product.producttitle} comment={product.comment} rating={product.rating} id={product._id} /> */}
                                         </td>
                                     </tr>

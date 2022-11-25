@@ -19,7 +19,7 @@ function Payment() {
         setId(location.state?.id)
     }, [location])
 
-    console.log(location)
+    
 
     return (
         <Elements stripe={stripePromise}>

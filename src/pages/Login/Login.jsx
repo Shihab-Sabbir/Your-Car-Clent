@@ -20,7 +20,7 @@ function Login() {
 
     const userRole = (userData) => {
         const user = { ...userData, role: 'buyer' }
-        axios.post('http://localhost:5000/login', {user}).then((response) => console.log(response))
+        axios.post('http://localhost:5000/login', { user }).then((response) => console.log(response))
     }
 
     const jwtToken = (user) => {
@@ -34,7 +34,7 @@ function Login() {
             body: JSON.stringify({ uid }),
         }).then(res => res.json()).then(data => {
             if (data.token) {
-                localStorage.setItem('assignment-11_Token', data.token)
+                localStorage.setItem('your-car-token', data.token)
                 setUser(user);
                 userRole(user);
                 setLoading(false);
@@ -133,7 +133,7 @@ function Login() {
                             </div>
                         </div>
                         <button className="block w-full p-3 text-center rounded-sm 
-                    bg-[#00ACBD] text-white  bg-gradient-to-l">Sign in</button>
+                    bg-amber-400 text-white  bg-gradient-to-l">Sign in</button>
                     </form>
                     <div className="flex items-center pt-4 space-x-1">
                         <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>

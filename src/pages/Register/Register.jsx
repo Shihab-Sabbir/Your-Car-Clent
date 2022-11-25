@@ -23,7 +23,7 @@ function Register() {
             previewImage = URL.createObjectURL(image);
         }
     }
-    const userRole = (userData,role) => {
+    const userRole = (userData, role) => {
         const user = { ...userData, role: role }
         axios.post('http://localhost:5000/login', { user }).then((response) => console.log(response))
     }
@@ -166,7 +166,7 @@ function Register() {
                         {errors.password && <p className='text-red-600' >{errors.password?.message}</p>}
                     </div>
                     <button className="block w-full p-3 text-center rounded-sm 
-                    bg-[#00ACBD]
+                    bg-amber-400
                     text-white bg-gradient-to-l" type='submit'>Sign up</button>
                 </form>
                 <p className="text-xs text-center sm:px-6 dark:text-gray-400 text-slate-800">Already have an account?

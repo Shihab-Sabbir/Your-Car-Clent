@@ -111,7 +111,7 @@ function CheckoutForm({ price, id }) {
     return (
         <div className='flex px-1 flex-col justify-center h-full relative'>
             <button className='absolute -top-5 md:top-[0] left-4 mb-4 btn btn-xs w-fit dark:bg-slate-200 dark:text-slate-900 text-slate-800 hover:text-slate-200 bg-amber-300 shadow  border-none' onClick={() => navigate('/dashboard')}>Back</button>
-            <p className='text-center text-xl mb-4 font-bold'>Stripe Payment</p>
+            <p className='text-center text-xl mb-4 font-bold text-amber-400'>Stripe Payment</p>
             <form onSubmit={handleSubmit} className='border p-3 max-w-[320px] sm:max-w-[400px] shadow-lg bg-transparent dark:bg-slate-800 dark:shadow-sky-800' >
                 <label className='text-black dark:text-white ' htmlFor="name">User Name</label>
                 <input

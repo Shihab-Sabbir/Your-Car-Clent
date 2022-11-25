@@ -3,7 +3,7 @@ import axios from 'axios';
 import { differenceInYears, format } from 'date-fns';
 import React from 'react'
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { TiTick } from 'react-icons/ti'
 import { AiFillHeart } from 'react-icons/ai'
 import { useEffect } from 'react';
@@ -14,15 +14,22 @@ import { AuthContext } from '../../UserContext/UserContext';
 
 function ProductsEachCategory() {
     const location = useLocation();
-    const category = location.state?.data;
+    // const category = location.state?.data;
+    const id = useParams();
     const [sellers, setsellers] = useState(null);
-    const { user } = useContext(AuthContext);
+    const [category, setCategory] = useState(null);
+    const { user, dbUser } = useContext(AuthContext);
     const [wishList, setWishList] = useState(['random']);
     const [loading, setLoading] = useState(true);
     const [reload, setReload] = useState(true);
     const [showModal, setShowModal] = useState(false)
+    useEffect(() => {
+        setLoading(true)
+        axios.get(`http://localhost:5000/product/id/${id?.id}`).then(res => { setCategory(res.data); setLoading(false) }).catch(err => { console.log(err); setLoading(false) })
+    }, [id])
+
     const { isLoading, error, data } = useQuery({
-        queryKey: ['category', user],
+        queryKey: ['category', user, category],
         queryFn: () =>
             fetch(`http://localhost:5000/product/${category}`).then(res =>
                 res.json()
@@ -35,10 +42,18 @@ function ProductsEachCategory() {
     }, [user, reload])
 
     const handleWishlist = (item, carId, uid) => {
-        setLoading(true)
-        axios.post(`http://localhost:5000/wishlist`, { item, carId, uid }).then(data => { toast.success(data.data); setReload(!reload); setLoading(false) }).catch(err => { console.log(err); setLoading(false) })
+        if (dbUser.role !== 'buyer') { toast.error('Only buyer can add wish items') }
+        else {
+            setLoading(true)
+            axios.post(`http://localhost:5000/wishlist`, { item, carId, uid }).then(data => { toast.success(data.data); setReload(!reload); setLoading(false) }).catch(err => { console.log(err); setLoading(false) })
+        }
     }
-
+    const handleOrder = () => {
+        if (dbUser.role !== 'buyer') { toast.error('Only buyer can book product') }
+        else {
+            setShowModal(true)
+        }
+    }
 
     if (isLoading || loading) return 'Loading...'
 
@@ -52,14 +67,13 @@ function ProductsEachCategory() {
                             <div key={item._id} className='w-[320px]'>
                                 <div className='border relative'>
                                     <img src={item.image} className='w-[300px] h-[250px]' alt="" />
-                                    <button className='absolute top-2 text-xl text-white right-2 ' onClick={() => handleWishlist(item, item._id, user?.uid)}>  <AiFillHeart className={
+                                    <button className='absolute top-2 text-2xl text-amber-300 right-2' onClick={() => handleWishlist(item, item._id, user?.uid)}>  <AiFillHeart className={
                                         wishList?.map(data => {
-                                            console.log('data : ', data)
                                             if (data.carId === item._id) {
-                                                return 'text-xl text-red-500'
+                                                return 'text-2xl text-red-500'
                                             }
                                             else {
-                                                return 'text-xl text-white'
+                                                return 'text-2xl text--amber-300'
                                             }
                                         })
                                     } /></button>
@@ -99,7 +113,7 @@ function ProductsEachCategory() {
                                         <div className='flex justify-between'>
                                             <label
                                                 htmlFor="booking-modal"
-                                                className='my-2 btn btn-sm bg-amber-400 border-0 text-slate-100 shadow-md dark:hover:border-white dark:hover:border' onClick={() => setShowModal(true)}>Book now</label>
+                                                className='my-2 btn btn-sm bg-amber-400 border-0 text-slate-100 shadow-md dark:hover:border-white dark:hover:border' onClick={handleOrder}>Book now</label>
                                             {showModal && <BookingModal item={item} setShowModal={setShowModal} />}
                                         </div>
                                     </div>

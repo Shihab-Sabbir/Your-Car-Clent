@@ -37,12 +37,12 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #00929f87;
+    background: #fbbf24;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: #00929f;
+    background: #fdb90d;
 }
 
 @media screen and (min-width: 770px) {

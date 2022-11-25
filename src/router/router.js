@@ -18,6 +18,7 @@ import AllBuyers from "../pages/admin/AllBuyers";
 import ProductsEachCategory from "../pages/ProductsEachCategory/ProductsEachCategory";
 import MyOrders from "../pages/Buyer/MyOrders";
 import Wishlist from "../pages/Buyer/Wishlist";
+import DashboardWellcome from "../pages/DashboardWellcome/DashboardWellcome";
 export const router = createBrowserRouter([
     {
         path: '/', errorElement: <Errorpages />, element: <Layout />, children: [
@@ -28,12 +29,12 @@ export const router = createBrowserRouter([
             { path: '/profile', element: <Profile /> },
             { path: '/blog', element: <Blog /> },
             { path: '/search', element: <Search /> },
-            { path: '/product', element: <ProductsEachCategory /> },
+            { path: '/category/:id', element: <ProtectedRoute><ProductsEachCategory /></ProtectedRoute> },
         ]
     },
     {
-        path: '/dashboard', errorElement: <Errorpages />, element: <DashBoardLayout />, children: [
-            { path: '/dashboard', element: <p>Dashboard</p> },
+        path: '/dashboard', errorElement: <Errorpages />, element: <ProtectedRoute><DashBoardLayout /></ProtectedRoute>, children: [
+            { path: '/dashboard', element: <DashboardWellcome/> },
             { path: '/dashboard/payment', element: <Payment /> },
             { path: '/dashboard/add-product', element: <AddProduct /> },
             { path: '/dashboard/my-products', element: <MyProduct /> },

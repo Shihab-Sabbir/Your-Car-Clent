@@ -80,16 +80,16 @@ function Search() {
                         placement="right-start"
                     >
                         <Dropdown.Item value='1' >
-                            <p className='min-h-full min-w-full p-3 px-5 border border-[#00ACBD] text-[#00ACBD]  rounded-lg text-center' onClick={(e) => onClick(e)}>1</p>
+                            <p className='min-h-full min-w-full p-3 px-5 border border-amber-400 text-amber-400  rounded-lg text-center' onClick={(e) => onClick(e)}>1</p>
                         </Dropdown.Item>
                         <Dropdown.Item value='1' >
-                            <p className='min-h-full min-w-full p-3 px-5 border border-[#00ACBD] text-[#00ACBD] rounded-lg text-center' onClick={(e) => onClick(e)}>3</p>
+                            <p className='min-h-full min-w-full p-3 px-5 border border-amber-400 text-amber-400 rounded-lg text-center' onClick={(e) => onClick(e)}>3</p>
                         </Dropdown.Item>
                         <Dropdown.Item value='1' >
-                            <p className='min-h-full min-w-full p-3 px-5 border border-[#00ACBD] text-[#00ACBD] rounded-lg text-center' onClick={(e) => onClick(e)}>6</p>
+                            <p className='min-h-full min-w-full p-3 px-5 border border-amber-400 text-amber-400 rounded-lg text-center' onClick={(e) => onClick(e)}>6</p>
                         </Dropdown.Item>
                         <Dropdown.Item value='1' >
-                            <p className='min-h-full min-w-full p-3 px-5 border border-[#00ACBD] text-[#00ACBD] rounded-lg text-center' onClick={(e) => onClick(e)}>All</p>
+                            <p className='min-h-full min-w-full p-3 px-5 border border-amber-400 text-amber-400 rounded-lg text-center' onClick={(e) => onClick(e)}>All</p>
                         </Dropdown.Item>
                     </Dropdown>
                 </div>
