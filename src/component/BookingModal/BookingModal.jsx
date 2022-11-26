@@ -37,7 +37,7 @@ function BookingModal({ item, setShowModal }) {
             carId
         }
 
-        fetch(`http://localhost:5000/order`, {
+        fetch(`https://your-car-server.vercel.app/order`, {
             method: 'POST',
             headers: {
                 'content-Type': 'application/json',
@@ -50,7 +50,7 @@ function BookingModal({ item, setShowModal }) {
                 setLoading(false)
                 setShowModal(false)
                 toast.error('You have already book this item !')
-                return 
+                return
             }
             else {
                 return res.json();

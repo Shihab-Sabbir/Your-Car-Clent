@@ -1,7 +1,7 @@
 import { confirmAlert } from 'react-confirm-alert';
 import toast from 'react-hot-toast';
 
-export const handleDeleteUser = (id, setUpdateState, setDataLoading, updateState,uid) => {
+export const handleDeleteUser = (id, setUpdateState, setDataLoading, updateState, uid) => {
     confirmAlert({
         message: 'Are you sure to remove this user ?',
         buttons: [
@@ -9,15 +9,15 @@ export const handleDeleteUser = (id, setUpdateState, setDataLoading, updateState
                 label: 'Yes',
                 onClick: () => {
                     setDataLoading(true)
-                    fetch(`http://localhost:5000/delete-user/${id}?uid=${uid}`, {
+                    fetch(`https://your-car-server.vercel.app/delete-user/${id}?uid=${uid}`, {
                         method: 'DELETE',
                         headers: {
                             authorization: `Bearer ${localStorage.getItem('your-car-token')}`
                         }
                     }).then(res => res.json()).then(data => {
                         console.log(data)
-                        if (data.modifiedCount > 0 || data.matchedCount >0) {
-                            toast.success('User removed !'); setUpdateState(!updateState); setDataLoading(false) 
+                        if (data.modifiedCount > 0 || data.matchedCount > 0) {
+                            toast.success('User removed !'); setUpdateState(!updateState); setDataLoading(false)
                         }
                     }).catch(err => { console.log(err); setDataLoading(false) })
                 }
@@ -28,7 +28,7 @@ export const handleDeleteUser = (id, setUpdateState, setDataLoading, updateState
             }
         ]
     });
-    
+
 }
 
 

@@ -22,18 +22,18 @@ function Wishlist() {
     const { isLoading, error, data } = useQuery({
         queryKey: ['category', user, reload],
         queryFn: () =>
-            fetch(`http://localhost:5000/wishlist/${user?.uid}`).then(res =>
+            fetch(`https://your-car-server.vercel.app/wishlist/${user?.uid}`).then(res =>
                 res.json()
             )
     })
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/users?role=seller`).then(data => { setsellers(data.data); setLoading(false) })
+        axios.get(`https://your-car-server.vercel.app/users?role=seller`).then(data => { setsellers(data.data); setLoading(false) })
     }, [])
 
     const handleWishlist = (id) => {
         setLoading(true)
-        axios.delete(`http://localhost:5000/wishlist/${id}`).then(data => { toast.success(data.data); setReload(!reload); setLoading(false) }).catch(err => { console.log(err); setLoading(false) })
+        axios.delete(`https://your-car-server.vercel.app/wishlist/${id}`).then(data => { toast.success(data.data); setReload(!reload); setLoading(false) }).catch(err => { console.log(err); setLoading(false) })
     }
 
     if (isLoading || loading) return 'Loading...'
@@ -93,7 +93,7 @@ function Wishlist() {
                                         <div className='flex justify-between'>
                                             <Link to='/dashboard/payment' state={{ price: item.item.resalePrice, id: item.carId }}
                                                 className='my-2 btn btn-sm bg-amber-400 border-0 text-slate-100 shadow-md dark:hover:border-white dark:hover:border'>Buy now</Link>
-                                            <button>Details</button>
+                                            <Link to={`/product-details/${item.carId}`} >Details</Link>
                                         </div>
                                     </div>
                                 </div>

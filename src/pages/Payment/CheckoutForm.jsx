@@ -37,7 +37,7 @@ function CheckoutForm({ price, id }) {
     const uid = user?.uid
     const navigate = useNavigate();
     useEffect(() => {
-        fetch('http://localhost:5000/payment-intents', {
+        fetch('https://your-car-server.vercel.app/payment-intents', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -48,7 +48,7 @@ function CheckoutForm({ price, id }) {
 
     const handlePayment = (id, txId) => {
         const date = new Date();
-        fetch(`http://localhost:5000/payment/${id}`, {
+        fetch(`https://your-car-server.vercel.app/payment/${id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json',

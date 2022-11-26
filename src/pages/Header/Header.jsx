@@ -6,13 +6,12 @@ import { AuthContext } from "../../UserContext/UserContext";
 import { useContext } from "react";
 import SearchModal from "../../component/SearchModal/SearchModal";
 import { AiOutlineMenu } from 'react-icons/ai';
-
+import './Header.css'
 export default function Header() {
     let arr = [true, false, false, false, false, false]
     const [style, setStyle] = useState(arr);
     const [dropDown, setDropDown] = useState(true);
     const [text, setText] = useState("");
-
     const { dark, setDark, user, handleSearch } = useContext(AuthContext);
     const navigate = useNavigate();
     function handleDark() {
@@ -36,19 +35,30 @@ export default function Header() {
 
     return (
         <div className="2xl:container 2xl:mx-auto">
-            <div className="bg-gray-100 dark:bg-gray-900 rounded shadow-lg py-5 px-4">
+            <div className="bg-gray-100 dark:bg-gray-900 rounded py-2 px-4 lg:px-2">
                 <nav className="flex justify-between">
-                    <div className="flex items-center space-x-3 lg:pr-16 pr-6">
+                    <Link to='/' className="flex items-center space-x-3 lg:pr-16 pr-6">
                         <img src={logo} alt="" />
-                    </div>
-                    {/* For medium and plus sized devices */}
-                    <ul className="hidden md:flex flex-auto space-x-2">
-                        <li onClick={() => selected(0)} className={`${style[0] ? 'text-white bg-indigo-600' : 'text-gray-600 border border-white bg-gray-50'}  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800  cursor-pointer px-3 py-2.5 font-normal text-xs leading-3 shadow-md rounded`}>Collections</li>
-                        <li onClick={() => selected(1)} className={`${style[1] ? 'text-white bg-indigo-600' : 'text-gray-600 border border-white bg-gray-50'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 cursor-pointer px-3 py-2.5 font-normal text-xs leading-3 shadow-md rounded`}>Arts</li>
-                        <li onClick={() => selected(2)} className={`${style[2] ? 'text-white bg-indigo-600' : 'text-gray-600 border border-white bg-gray-50'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 cursor-pointer px-3 py-2.5 font-normal text-xs leading-3 shadow-md rounded`}>Space</li>
-                        <li onClick={() => selected(3)} className={`${style[3] ? 'text-white bg-indigo-600' : 'text-gray-600 border border-white bg-gray-50'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 cursor-pointer px-3 py-2.5 font-normal text-xs leading-3 shadow-md rounded`}>Game</li>
-                        <li onClick={() => selected(4)} className={`${style[4] ? 'text-white bg-indigo-600' : 'text-gray-600 border border-white bg-gray-50'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 cursor-pointer px-3 py-2.5 font-normal text-xs leading-3 shadow-md rounded`}>Utility</li>
-                        <li onClick={() => selected(5)} className={`${style[5] ? 'text-white bg-indigo-600' : 'text-gray-600 border border-white bg-gray-50'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 cursor-pointer px-3 py-2.5 font-normal text-xs leading-3 shadow-md rounded`}>Cards</li>
+                    </Link>
+                    <ul className="hidden md:flex flex-auto h-fit pt-4 space-x-2">
+                        <Link to='/'>
+                            <li onClick={() => selected(0)} className={`${style[0] ? 'text-white bg-amber-400' : 'text-gray-600 border border-white bg-gray-50'}  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800  cursor-pointer px-3 py-2.5 font-normal text-xs leading-3 shadow-md rounded`}>Home</li>
+                        </Link>
+                        <Link to='/'>
+                            <li onClick={() => selected(1)} className={`${style[1] ? 'text-white bg-amber-400' : 'text-gray-600 border border-white bg-gray-50'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 cursor-pointer px-3 py-2.5 font-normal text-xs leading-3 shadow-md rounded`}>Products</li>
+                        </Link>
+                        <Link to='/dashboard'>
+                            <li onClick={() => selected(2)} className={`${style[2] ? 'text-white bg-amber-400' : 'text-gray-600 border border-white bg-gray-50'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 cursor-pointer px-3 py-2.5 font-normal text-xs leading-3 shadow-md rounded`}>Dashboard</li>
+                        </Link>
+                        <Link to='/blog'>
+                            <li onClick={() => selected(3)} className={`${style[3] ? 'text-white bg-amber-400' : 'text-gray-600 border border-white bg-gray-50'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 cursor-pointer px-3 py-2.5 font-normal text-xs leading-3 shadow-md rounded`}>Blog</li>
+                        </Link>
+                        <Link to='/login'>
+                            <li onClick={() => selected(4)} className={`${style[4] ? 'text-white bg-amber-400' : 'text-gray-600 border border-white bg-gray-50'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 cursor-pointer px-3 py-2.5 font-normal text-xs leading-3 shadow-md rounded`}>{user?.uid ? 'Logout' : "Login"}</li>
+                        </Link>
+                        <Link to='/'>
+                            <li onClick={() => selected(5)} className={`${style[5] ? 'text-white bg-amber-400' : 'text-gray-600 border border-white bg-gray-50'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 cursor-pointer px-3 py-2.5 font-normal text-xs leading-3 shadow-md rounded`}>Contact</li>
+                        </Link>
                     </ul>
                     <div className=" flex space-x-5 justify-center items-center pl-2">
                         <label htmlFor="search-modal" >
@@ -102,7 +112,7 @@ export default function Header() {
                                 <li onClick={() => setSelectedText("Blog")} className="px-4 py-3 bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-200 border-gray-50 focus:outline-none focus:bg-gray-100 hover:bg-gray-100 duration-100 cursor-pointer text-xs leading-3 font-normal">Blog</li>
                             </Link>
                             <Link to='/login'>
-                                <li onClick={() => setSelectedText("Utility")} className="px-4 py-3 bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-200 border-gray-50 focus:outline-none focus:bg-gray-100 hover:bg-gray-100 duration-100 cursor-pointer text-xs leading-3 font-normal">Login</li>
+                                <li onClick={() => setSelectedText("Utility")} className="px-4 py-3 bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-200 border-gray-50 focus:outline-none focus:bg-gray-100 hover:bg-gray-100 duration-100 cursor-pointer text-xs leading-3 font-normal">{user?.uid ? 'Logout' : "Login"}</li>
                             </Link>
                         </ul>
                     </div>

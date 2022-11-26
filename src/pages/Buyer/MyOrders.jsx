@@ -10,13 +10,14 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import toast from 'react-hot-toast';
 import { signOut } from 'firebase/auth';
 import axios from 'axios';
+import DataLoadingSpinner from '../../component/DataLoadingSpinner/DataLoadingSpinner';
 function MyOrders() {
     const [orders, setOrders] = useState([]);
     const [dataLoading, setDataLoading] = useState(true);
     const { user, loading, updateState, setUpdateState } = useContext(AuthContext);
     const navigate = useNavigate()
     useEffect(() => {
-        axios.get(`http://localhost:5000/my-orders/${user?.uid}`, {
+        axios.get(`https://your-car-server.vercel.app/my-orders/${user?.uid}`, {
             headers: {
                 authorization: `Bearer ${localStorage.getItem('your-car-token')}`
             }
@@ -30,22 +31,7 @@ function MyOrders() {
     // console.log(orders)
 
     if (dataLoading) {
-        return (
-            <div className=" rounded relative mt-[100px]">
-                <div className="rounded-full bg-[#b8ebf0] w-[190px] h-[190px] relative flex justify-center items-center mx-auto animate-spin">
-                    <svg className="absolute top-[2px] right-0" width={76} height={97} viewBox="0 0 76 97" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <mask id="path-1-inside-1_2495_2146" fill="white">
-                            <path d="M76 97C76 75.6829 69.2552 54.9123 56.7313 37.6621C44.2074 20.4118 26.5466 7.56643 6.27743 0.964994L0.0860505 19.9752C16.343 25.2698 30.5078 35.5725 40.5526 49.408C50.5974 63.2436 56.007 79.9026 56.007 97H76Z" />
-                        </mask>
-                        <path d="M76 97C76 75.6829 69.2552 54.9123 56.7313 37.6621C44.2074 20.4118 26.5466 7.56643 6.27743 0.964994L0.0860505 19.9752C16.343 25.2698 30.5078 35.5725 40.5526 49.408C50.5974 63.2436 56.007 79.9026 56.007 97H76Z" stroke="#1ab7c5" strokeWidth={40} mask="url(#path-1-inside-1_2495_2146)" />
-                    </svg>
-                    <div className="rounded-full bg-white w-[150px] h-[150px]" />
-                </div>
-                <p className="absolute mx-auto inset-x-0 my-auto inset-y-[80px] text-base font-medium text-gray-800 text-center">
-                    Loading ...
-                </p>
-            </div>
-        )
+        return <DataLoadingSpinner />
     }
 
     const handleDelete = (id) => {

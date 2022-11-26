@@ -1,4 +1,7 @@
-
+.add-info{
+    background: url('https://media.istockphoto.com/id/1316504666/photo/simple-yellow-background-of-an-artificial-square-block-contour-structure-pattern.jpg?b=1&s=170667a&w=0&k=20&c=RnbSL7uy37ACRKrv0JJYVMLm9XgIsC4lAv4Sw-vp9-A=');
+    background-size: cover;
+}
 /* width */
 ::-webkit-scrollbar {
     width: 8px;

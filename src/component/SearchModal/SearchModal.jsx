@@ -40,7 +40,7 @@ function SearchModal({ handleSearch}) {
                         </svg>
                     </button>
                 </form>
-                <label htmlFor="search-modal" className="btn bg-gray-500 border-0 text-white btn-sm mt-1">Cancle</label>
+                <label htmlFor="search-modal" className="btn bg-gray-500 border-0 text-white btn-sm mt-1">close</label>
             </div>
         </div>
     )

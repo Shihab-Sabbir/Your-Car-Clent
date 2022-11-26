@@ -18,7 +18,7 @@ function UserTable({ data, updateState, setUpdateState }) {
 
     const handleVerify = uid => {
         setDataLoading(true)
-        axios.post(`http://localhost:5000/verify-seller/${uid}`,{}, {
+        axios.post(`https://your-car-server.vercel.app/verify-seller/${uid}`, {}, {
             headers: {
                 authorization: `Bearer ${localStorage.getItem('your-car-token')}`
             }
@@ -74,7 +74,7 @@ function UserTable({ data, updateState, setUpdateState }) {
 
                                     {location.pathname.split('/')[2] === 'all-sellers' && <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
                                         <p className='flex gap-2 justify-center items-center'>
-                                            {user?.verify ? <button onClick={() => handleVerify(user?.uid)}>Verified</button> : <button onClick={() => handleVerify(user?.uid)}>Verify Seller Now</button>}
+                                            {user?.verify ? <button onClick={() => handleVerify(user?.uid)} className='p-1 rounded-lg shadow-lg px-2 py-1 border border-sky-500 dark:shadow-sky-300 dark:shadow-md'>Verified</button> : <button onClick={() => handleVerify(user?.uid)} className='p-1 rounded-lg shadow-lg px-2 py-1 border border-amber-500 dark:shadow-amber-100 dark:shadow'>Verify Seller Now</button>}
                                         </p>
                                     </td>}
                                     {/* {location.pathname.split('/')[2] === 'all-sellers' && <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">

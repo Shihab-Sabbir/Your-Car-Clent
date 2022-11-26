@@ -13,13 +13,13 @@ function AllSellers() {
     const { loading } = useContext(AuthContext);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/users', {
+        axios.get('https://your-car-server.vercel.app/users', {
             params: { role: 'seller' }
         }).then(res => setSellers(res.data)).catch(err => console.log(err))
     }, [updateState])
 
     if (loading) {
-        return <DataLoadingSpinner/>
+        return <DataLoadingSpinner />
     }
 
     return (

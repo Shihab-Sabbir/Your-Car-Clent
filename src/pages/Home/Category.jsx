@@ -6,7 +6,7 @@ function Category() {
     const { isLoading, error, data } = useQuery({
         queryKey: ['category'],
         queryFn: () =>
-            fetch('http://localhost:5000/category').then(res =>
+            fetch('https://your-car-server.vercel.app/category').then(res =>
                 res.json()
             )
     })

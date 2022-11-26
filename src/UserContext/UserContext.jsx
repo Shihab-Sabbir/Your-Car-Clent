@@ -16,10 +16,8 @@ function UserContext({ children }) {
     const userinfo = { dark, setDark, user, setUser, loading, setLoading, updateState, setUpdateState, handleSearch, search, auth, dbUser, setDbUser };
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            if (currentUser) {
-                setUser(currentUser);
-                setLoading(false);
-            }
+            setUser(currentUser);
+            setLoading(false);
         });
         return () => {
             unsubscribe();
@@ -27,15 +25,16 @@ function UserContext({ children }) {
     }, [])
 
     useEffect(() => {
-        fetch(`http://localhost:5000/user/${user?.uid}`)
+        fetch(`https://your-car-server.vercel.app/user/${user?.uid}`)
             .then(res => res.json())
-            .then(data => { setDbUser(data)})
-            .catch(err => { console.log(err)})
+            .then(data => { setDbUser(data) })
+            .catch(err => { console.log(err) })
     }, [user])
 
     function handleSearch(e) {
         e.preventDefault();
         setSearch(e.target.search.value);
+        setUpdateState(!updateState)
     }
 
     return (

@@ -1,14 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import logo from '../../asset/logo.png'
+import logo from '../../asset/images/dbimage.gif'
 function Footer() {
     return (
-        <div>
+        <div className='place-content-center'>
+            <hr className="border-gray-200 sm:mx-auto dark:border-gray-700" />
             <footer className="p-4 bg-slate-100 sm:p-6 dark:bg-gray-900">
-                <div className="md:flex md:justify-between">
-                    <div className="mb-6 md:mb-0 flex items-center gap-1">
-                        <Link to='/' className="flex items-center">
-                            <img src={logo} className="mr-3 h-20" alt="Logo" />
+                <div className="flex flex-col justify-center items-center md:justify-evenly md:flex-row">
+                    <div className="mb-6 md:mb-0">
+                        <Link to='/' className="flex items-center lg:item:start justify-center w-fit mx-auto h-fitr">
+                            <p className='text-2xl font-extrabold text-amber-300 '>Your Car</p>
+                            <img src={logo} className="w-[200px]" alt="Logo" />
+                            <p className='text-2xl font-extrabold text-amber-300'>Your Dream</p>
                         </Link>
                     </div>
                     <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">

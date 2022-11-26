@@ -21,13 +21,13 @@ function Login() {
 
     const userRole = (userData) => {
         const user = { ...userData, role: 'buyer' }
-        axios.post('http://localhost:5000/register', { user }).then((response) => console.log(response))
+        axios.post('https://your-car-server.vercel.app/register', { user }).then((response) => console.log(response))
     }
 
     const jwtToken = (user) => {
         setLoading(true)
         const uid = user?.uid;
-        fetch('http://localhost:5000/jwt', {
+        fetch('https://your-car-server.vercel.app/jwt', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
