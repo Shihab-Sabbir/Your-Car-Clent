@@ -11,6 +11,7 @@ import BookingModal from '../../component/BookingModal/BookingModal';
 import toast from 'react-hot-toast';
 import { useContext } from 'react';
 import { AuthContext } from '../../UserContext/UserContext';
+import DataLoadingSpinner from '../../component/DataLoadingSpinner/DataLoadingSpinner';
 
 function ProductsEachCategory() {
     const location = useLocation();
@@ -50,7 +51,7 @@ function ProductsEachCategory() {
         }
     }
     console.log(wishList)
-    if (isLoading || loading) return 'Loading...'
+    if (isLoading || loading) return <DataLoadingSpinner />
 
     if (error) return 'An error has occurred: ' + error.message;
     return (

@@ -3,6 +3,7 @@ import React from 'react'
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query'
 import addBg from '../../asset/images/addBg.png'
+import DataLoadingSpinner from '../../component/DataLoadingSpinner/DataLoadingSpinner';
 function Advertise() {
     const [add, setAdd] = useState([]);
     const { isLoading, error, data } = useQuery({
@@ -12,7 +13,7 @@ function Advertise() {
                 res.json()
             )
     })
-    if (isLoading) return 'Loading...'
+    if (isLoading) return <DataLoadingSpinner />
 
     if (error) return 'An error has occurred: ' + error.message;
     console.log(data)

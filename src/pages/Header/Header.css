@@ -1,29 +1,3 @@
-.active-class {
-    font-weight: bolder;
-    color: #fbbf24;
-}
-
-.non-active-class {
-    font-weight: bold;
-    color: black;
-}
-.dark .non-active-class {
-    font-weight: bold;
-    color: white;
-}
-
-.smileNav {
-    background-color: #F3F4F6;
-     padding-top: 0;
-     padding-bottom: 0;
-}
-
-.dark .smileNav {
-    background-color: #0f172a;
-     padding-top: 0;
-     padding-bottom: 0;
-}
-
 
 /* width */
 ::-webkit-scrollbar {
@@ -43,17 +17,4 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #fdb90d;
-}
-
-@media screen and (min-width: 770px) {
-.x ul {
-        align-items: center;
-    }
-}
-
-@media screen and (max-width: 760px) {
-    .x a {
-        padding-top: 4px;
-        padding-bottom: 4px;
-    }
 }

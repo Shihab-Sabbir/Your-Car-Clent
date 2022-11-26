@@ -3,6 +3,7 @@ import React from 'react'
 import { useContext } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import DataLoadingSpinner from '../../component/DataLoadingSpinner/DataLoadingSpinner';
 import { AuthContext } from '../../UserContext/UserContext';
 import UserTable from './UserTable';
 
@@ -18,7 +19,7 @@ function AllSellers() {
     }, [updateState])
 
     if (loading) {
-        return <p>Loading...</p>
+        return <DataLoadingSpinner/>
     }
 
     return (

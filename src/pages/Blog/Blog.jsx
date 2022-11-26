@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet";
-import tooth from "../../asset/tooth.gif"
 
 const Blog = () => {
     const [show, setShow] = useState(false);

@@ -4,18 +4,22 @@ import { Link, useRouteError } from 'react-router-dom';
 function ErrorPage() {
     const error = useRouteError();
     return (
-        <div className='flex flex-col justify-center items-center pt-[120px]'>
-            <div className="max-w-md text-center">
-                <h2 className="mb-8 font-extrabold text-9xl text-black dark:text-gray-600">
-                    <span className="sr-only">Error</span>{error.status || 404}
-                </h2>
-                <p className="text-2xl font-semibold md:text-3xl">{error.statusText}</p>
-                <p className="text-2xl font-semibold md:text-3xl">Sorry, we couldn't find this page.</p>
-                <p className="mt-4 mb-8 dark:text-gray-400">But dont worry, you can find plenty of other things on our homepage.</p>
-                <Link rel="noopener noreferrer" to='/' className="px-8 py-3 border font-semibold rounded dark:bg-violet-400 dark:text-gray-900">Back to homepage</Link>
+        <div className="flex items-center flex-col justify-center lg:flex-row py-28 px-6 md:px-24 md:py-20 lg:py-32 gap-16 lg:gap-28">
+            <div className="w-full lg:w-1/2">
+                <img className="hidden lg:block" src="https://i.ibb.co/v30JLYr/Group-192-2.png" alt="" />
+                <img className="hidden md:block lg:hidden" src="https://i.ibb.co/c1ggfn2/Group-193.png" alt="" />
+                <img className="md:hidden" src="https://i.ibb.co/8gTVH2Y/Group-198.png" alt="" />
+            </div>
+            <div className="w-full lg:w-1/2">
+                <h1 className="py-4 text-3xl lg:text-4xl font-extrabold text-black dark:text-gray-200">Looks like you've found the doorway to the great nothing</h1>
+                <p className="py-4 text-base text-black dark:text-gray-200">The content you’re looking for doesn’t exist. Either it was removed, or you mistyped the link.</p>
+                <p className="py-2 text-base text-black dark:text-gray-200">Sorry about that! Please visit our hompage to get where you need to go.</p>
+                <Link to='/'>
+                    <button className="w-full lg:w-auto my-4 border rounded-md px-1 sm:px-16 py-5 bg-amber-400 text-white hover:bg-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:ring-opacity-50">Go back to Homepage</button>
+                </Link>
             </div>
         </div>
-    );
+    )
 }
 
 export default ErrorPage;

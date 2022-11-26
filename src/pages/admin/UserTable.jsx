@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import toast from 'react-hot-toast';
 import { useLocation } from 'react-router-dom';
+import DataLoadingSpinner from '../../component/DataLoadingSpinner/DataLoadingSpinner';
 import { handleDeleteUser } from '../../Utility/userDelete';
 
 function UserTable({ data, updateState, setUpdateState }) {
@@ -24,7 +25,7 @@ function UserTable({ data, updateState, setUpdateState }) {
         }).then(res => { toast.success(res.data); setUpdateState(!updateState); setDataLoading(false) }).catch(err => { console.log(err); setDataLoading(false) })
     }
     if (dataLoading) {
-        return <p>Loading...</p>
+        return <DataLoadingSpinner />
     }
     return (
         <div className="overflow-x-auto relative shadow-md sm:rounded-lg p-1 lg:p-2 xl:p-4">
