@@ -17,21 +17,16 @@ function ProductsEachCategory() {
     // const category = location.state?.data;
     const id = useParams();
     const [sellers, setsellers] = useState(null);
-    const [category, setCategory] = useState(null);
     const { user, dbUser } = useContext(AuthContext);
     const [wishList, setWishList] = useState(['random']);
     const [loading, setLoading] = useState(true);
     const [reload, setReload] = useState(true);
     const [showModal, setShowModal] = useState(false)
-    useEffect(() => {
-        setLoading(true)
-        axios.get(`http://localhost:5000/product/id/${id?.id}`).then(res => { setCategory(res.data); setLoading(false) }).catch(err => { console.log(err); setLoading(false) })
-    }, [id])
 
     const { isLoading, error, data } = useQuery({
-        queryKey: ['category', user, category],
+        queryKey: ['category', user, id],
         queryFn: () =>
-            fetch(`http://localhost:5000/product/${category}`).then(res =>
+            fetch(`http://localhost:5000/product/${id.id}`).then(res =>
                 res.json()
             )
     })

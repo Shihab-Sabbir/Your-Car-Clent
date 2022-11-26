@@ -1,9 +1,11 @@
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+import axios from 'axios';
 import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { useLocation, useNavigate } from 'react-router-dom';
 import CheckoutForm from './CheckoutForm';
 
 const stripePromise = loadStripe("pk_test_51M6ASuFYDMLeNVaQCwHq9jco0SCMUiANa4YcODdYzhmHIk40aV4sBkcGCwdsfHbeXza2Nk1CF0e7wrb8osPkV8xy00fXPfdPhn");
@@ -11,19 +13,15 @@ const stripePromise = loadStripe("pk_test_51M6ASuFYDMLeNVaQCwHq9jco0SCMUiANa4YcO
 function Payment() {
     const [price, setPrice] = useState(0);
     const [id, setId] = useState(null);
-
     const location = useLocation();
-
+    const navigate = useNavigate();
     useEffect(() => {
         setPrice(location.state?.price)
         setId(location.state?.id)
     }, [location])
-
-    
-
     return (
         <Elements stripe={stripePromise}>
-            <CheckoutForm price={price} id={id}  />
+            <CheckoutForm price={price} id={id} />
         </Elements>
     )
 }

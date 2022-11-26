@@ -36,14 +36,25 @@ function BookingModal({ item, setShowModal }) {
             image,
             carId
         }
-        console.log(booking)
+
         fetch(`http://localhost:5000/order`, {
             method: 'POST',
             headers: {
                 'content-Type': 'application/json',
             },
             body: JSON.stringify(booking)
-        }).then(res => res.json()).then(data => {
+        }).then(res => {
+            console.log(res, res.status)
+            if (res.status == 503) {
+                setLoading(false)
+                setShowModal(false)
+                toast.error('You have already book this item !')
+                return 
+            }
+            else {
+                return res.json();
+            }
+        }).then(data => {
             if (data.acknowledged) {
                 toast.success('Order placed !');
                 setShowModal(false);

@@ -17,7 +17,7 @@ function Home() {
         console.log('resizing')
     })
     return (
-        <div>
+        <div style={{overflowX:'hidden'}}>
             <Banner />
             <div data-aos="fade-down" data-aos-duration="2000">
 

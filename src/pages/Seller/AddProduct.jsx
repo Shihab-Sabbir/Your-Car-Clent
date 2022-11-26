@@ -42,14 +42,15 @@ function AddProduct() {
       const sold = false;
       const add = false;
       const sellerName = user?.displayName;
-      const date = format(new Date(), 'PP')
-      const uid = user?.uid
+      const date = format(new Date(), 'PP');
+      const uid = user?.uid;
+      const categoryId = category.length;
       formData.append('image', image);
       fetch(`https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_Imgbb_Key}`, {
         method: 'POST',
         body: formData
       }).then(res => res.json()).then(data => {
-        const product = { name, model, milage, date, year, category, sold, add, condition, marketPrice, resalePrice, image: data.data.display_url, location, mobile, details, uid, sellerName };
+        const product = { name, model, milage, date, year, category, sold, add, condition, marketPrice, resalePrice, image: data.data.display_url, location, mobile, details, uid, sellerName, categoryId };
         axios.post('http://localhost:5000/add-product', product).then(res => {
           console.log(data)
           if (data.insertedId || data.success) {
@@ -85,7 +86,7 @@ function AddProduct() {
               <option value='microbus'>Microbus</option>
               <option value='suv'>SUV</option>
               <option value='luxury-car'>Luxury car</option>
-              <option value='mpv'>MPV</option>
+              <option value='mp-v'>MPV</option>
             </select>
           </div>
           <div className='flex-col flex-1'>
