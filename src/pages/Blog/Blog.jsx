@@ -14,7 +14,7 @@ const Blog = () => {
                 <title>Your Car - Blog</title>
             </Helmet>
             <h2 className=" font-semibold lg:text-4xl text-3xl lg:leading-9 md:leading-7 leading-9 text-gray-800 dark:text-slate-200">Blog Section</h2>
-            <div className="mt-4 flex md:justify-between md:items-start md:flex-row flex-col justify-start items-start">
+            <div className="my-4 flex md:justify-between md:items-start md:flex-row flex-col justify-start items-start">
                 <div className=" ">
                     <p className=" font-normal text-base leading-6 text-gray-600 lg:w-8/12 md:w-9/12 dark:text-slate-200">Most excitig section...</p>
                 </div>
@@ -25,8 +25,8 @@ const Blog = () => {
                         <h3 className=" font-semibold text-xl leading-5 text-gray-800 dark:text-slate-200">What are the different ways to manage a state in a React application?</h3>
                         <button aria-label="too" className="cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800" onClick={() => setShow(!show)}>
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path className={show ? "hidden" : "block"} d="M10 4.1665V15.8332" stroke="#00ACBD" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M4.16602 10H15.8327" stroke="#00ACBD" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
+                                <path className={show ? "hidden" : "block"} d="M10 4.1665V15.8332" stroke="#fbbf24" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
+                                <path d="M4.16602 10H15.8327" stroke="#fbbf24" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                         </button>
                     </div>
@@ -48,8 +48,8 @@ const Blog = () => {
                         <h3 className=" font-semibold text-xl leading-5 text-gray-800 dark:text-slate-200">How does prototypical inheritance work?</h3>
                         <button aria-label="too" className=" cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800" onClick={() => setShow2(!show2)}>
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path className={show2 ? "hidden" : "block"} d="M10 4.1665V15.8332" stroke="#00ACBD" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M4.16602 10H15.8327" stroke="#00ACBD" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
+                                <path className={show2 ? "hidden" : "block"} d="M10 4.1665V15.8332" stroke="#fbbf24" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
+                                <path d="M4.16602 10H15.8327" stroke="#fbbf24" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                         </button>
                     </div>
@@ -75,8 +75,8 @@ const Blog = () => {
                         <h3 className=" font-semibold text-xl leading-5 text-gray-800 dark:text-slate-200">What is a unit test? Why should we write unit tests?</h3>
                         <button aria-label="too" className=" cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800" onClick={() => setShow3(!show3)}>
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path className={show3 ? "hidden" : "block"} d="M10 4.1665V15.8332" stroke="#00ACBD" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M4.16602 10H15.8327" stroke="#00ACBD" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
+                                <path className={show3 ? "hidden" : "block"} d="M10 4.1665V15.8332" stroke="#fbbf24" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
+                                <path d="M4.16602 10H15.8327" stroke="#fbbf24" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                         </button>
                     </div>
@@ -100,8 +100,8 @@ const Blog = () => {
                         <h3 className=" font-semibold text-xl leading-5 text-gray-800 dark:text-slate-200 lg:pr-0 pr-1">React vs. Angular vs. Vue?</h3>
                         <button aria-label="too" className=" cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800" onClick={() => setShow4(!show4)}>
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path className={show4 ? "hidden" : "block"} d="M10 4.1665V15.8332" stroke="#00ACBD" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M4.16602 10H15.8327" stroke="#00ACBD" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
+                                <path className={show4 ? "hidden" : "block"} d="M10 4.1665V15.8332" stroke="#fbbf24" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
+                                <path d="M4.16602 10H15.8327" stroke="#fbbf24" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                         </button>
                     </div>

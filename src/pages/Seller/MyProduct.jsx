@@ -74,7 +74,11 @@ function MyProduct() {
 
     const handleAddvertise = (info, id) => {
         setDataLoading(true)
-        axios.post(`http://localhost:5000/advertise/${id}`, { info }).then(res => { toast.success(res.data); setUpdateState(!updateState); setDataLoading(false) }).catch(err => { console.log(err) })
+        axios.post(`http://localhost:5000/advertise/${id}`, {},{
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('your-car-token')}`
+            }
+        }, { info }).then(res => { toast.success(res.data); setUpdateState(!updateState); setDataLoading(false) }).catch(err => { console.log(err) })
     }
 
     return (

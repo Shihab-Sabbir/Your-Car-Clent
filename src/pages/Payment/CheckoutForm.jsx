@@ -34,6 +34,7 @@ function CheckoutForm({ price, id }) {
     const [secret, setSecret] = useState('');
     const [errorMessage, setErrorMessage] = useState(null);
     const { user } = useContext(AuthContext);
+    const uid = user?.uid
     const navigate = useNavigate();
     useEffect(() => {
         fetch('http://localhost:5000/payment-intents', {
@@ -50,9 +51,10 @@ function CheckoutForm({ price, id }) {
         fetch(`http://localhost:5000/payment/${id}`, {
             method: 'PATCH',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('your-car-token')}`
             },
-            body: JSON.stringify({ txId, date })
+            body: JSON.stringify({ txId, date, uid })
         }).then(res => res.json()).then(data => {
             if (data.matchedCount) {
                 navigate('/dashboard/my-orders')

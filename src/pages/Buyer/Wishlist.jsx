@@ -4,20 +4,23 @@ import { differenceInYears } from 'date-fns';
 import React from 'react'
 import { useState } from 'react';
 import { TiTick } from 'react-icons/ti'
+import { ImCross } from 'react-icons/im'
 import { useEffect } from 'react';
 import BookingModal from '../../component/BookingModal/BookingModal';
 import { useContext } from 'react';
 import { AuthContext } from '../../UserContext/UserContext';
 import { Link, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 function Wishlist() {
-    const { user } = useContext(AuthContext)
+    const { user } = useContext(AuthContext);
     const [sellers, setsellers] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [reload, setReload] = useState(true);
     const [showModal, setShowModal] = useState(false)
 
     const { isLoading, error, data } = useQuery({
-        queryKey: ['category', user],
+        queryKey: ['category', user, reload],
         queryFn: () =>
             fetch(`http://localhost:5000/wishlist/${user?.uid}`).then(res =>
                 res.json()
@@ -28,6 +31,10 @@ function Wishlist() {
         axios.get(`http://localhost:5000/users?role=seller`).then(data => { setsellers(data.data); setLoading(false) })
     }, [])
 
+    const handleWishlist = (id) => {
+        setLoading(true)
+        axios.delete(`http://localhost:5000/wishlist/${id}`).then(data => { toast.success(data.data); setReload(!reload); setLoading(false) }).catch(err => { console.log(err); setLoading(false) })
+    }
 
     if (isLoading || loading) return 'Loading...'
 
@@ -43,13 +50,13 @@ function Wishlist() {
     return (
         <div>
             <div className='flex justify-center items-center'>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
                     {
                         data?.map(item =>
                             <div key={item.item._id} className='w-[320px]'>
                                 <div className='border relative'>
                                     <img src={item.item.image} className='w-[300px] h-[250px]' alt="" />
-                                    <button className='absolute top-2 right-2'>wish</button>
+                                    <button className='absolute top-2 text-2xl text-red-600 right-2' onClick={() => handleWishlist(item._id)}><ImCross /></button>
                                     <div className='p-2 bg-slate-200 dark:bg-slate-800'>
                                         <div className='flex items-center justify-between'>
                                             <p className='font-bold uppercase text-black dark:text-slate-200'>{item.item.name}</p>

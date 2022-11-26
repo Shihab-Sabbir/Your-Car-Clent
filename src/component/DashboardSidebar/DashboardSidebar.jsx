@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { IoArrowBackSharp } from 'react-icons/io5';
 import { MdOutlineLightMode, MdOutlineDarkMode } from 'react-icons/md';
 import { NavLink, useNavigate } from 'react-router-dom';
+import Logout from '../../pages/Logout/Logout';
 import { AuthContext } from '../../UserContext/UserContext';
 function DashboardSidebar({ toggle }) {
 
@@ -36,6 +37,9 @@ function DashboardSidebar({ toggle }) {
                                 <NavLink to="/dashboard/all-sellers"
                                     end
                                     className={({ isActive }) => (isActive ? "active-class" : "non-active-class dark:non-active-class")}>All Sellers</NavLink>
+                                <NavLink to="/login"
+                                    end
+                                    className={({ isActive }) => (isActive ? "active-class" : "non-active-class dark:non-active-class")}>Logout</NavLink>
                             </div>
                         </div>}
                         {dbUser?.role === 'buyer' && <div className="space-y-5">
@@ -47,6 +51,9 @@ function DashboardSidebar({ toggle }) {
                                 <NavLink to="/dashboard/my-wishlist"
                                     end
                                     className={({ isActive }) => (isActive ? "active-class" : "non-active-class dark:non-active-class")}>Wishlist</NavLink>
+                                <NavLink to="/login"
+                                    end
+                                    className={({ isActive }) => (isActive ? "active-class" : "non-active-class dark:non-active-class")}>Logout</NavLink>
                             </div>
                         </div>}
                         {dbUser?.role === 'seller' && <div className="space-y-5">
@@ -58,10 +65,12 @@ function DashboardSidebar({ toggle }) {
                                 <NavLink to="/dashboard/add-product"
                                     end
                                     className={({ isActive }) => (isActive ? "active-class" : "non-active-class dark:non-active-class")}>Add Product</NavLink>
+                                <NavLink to="/login"
+                                    end
+                                    className={({ isActive }) => (isActive ? "active-class" : "non-active-class dark:non-active-class")}>Logout</NavLink>
                             </div>
                         </div>}
                     </div>
-
                     <div className="space-y-2 text-center absolute bottom-8 flex items-center gap-4 border-t pt-4 border-amber-500">
                         <img alt="" className="w-12 h-12 rounded-md mx-auto ring-2 ring-offset-1 dark:bg-gray-500 ring-primary ring-offset-amber-500 mt-[10px]" src={user?.photoURL} />
                         <div className='flex flex-col items-start'>

@@ -44,7 +44,7 @@ function AddProduct() {
       const sellerName = user?.displayName;
       const date = format(new Date(), 'PP');
       const uid = user?.uid;
-      const categoryId = category.length;
+      const categoryId = (category.length).toString();
       formData.append('image', image);
       fetch(`https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_Imgbb_Key}`, {
         method: 'POST',
@@ -94,7 +94,7 @@ function AddProduct() {
             <select className="select-bordered w-full text-sm bg-gray-50 text-slate-800 dark:text-slate-200 dark:hover:bg-bray-800 dark:bg-gray-700" name='condition'>
               <option defaultChecked value='excellent'>Excellent</option>
               <option value='good'>Good</option>
-              <option value='bad'>Bad</option>
+              <option value='bad'>Fair</option>
             </select>
           </div>
         </div>

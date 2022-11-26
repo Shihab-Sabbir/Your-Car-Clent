@@ -41,6 +41,7 @@ function BookingModal({ item, setShowModal }) {
             method: 'POST',
             headers: {
                 'content-Type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('your-car-token')}`
             },
             body: JSON.stringify(booking)
         }).then(res => {

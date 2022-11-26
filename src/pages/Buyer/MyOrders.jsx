@@ -16,7 +16,11 @@ function MyOrders() {
     const { user, loading, updateState, setUpdateState } = useContext(AuthContext);
     const navigate = useNavigate()
     useEffect(() => {
-        axios.get(`http://localhost:5000/my-orders/${user?.uid}`).then(res => { setOrders(res.data); setDataLoading(false) }).catch(err => {
+        axios.get(`http://localhost:5000/my-orders/${user?.uid}`, {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('your-car-token')}`
+            }
+        }).then(res => { setOrders(res.data); setDataLoading(false) }).catch(err => {
             console.log(err);
             setDataLoading(false);
         })

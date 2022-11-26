@@ -49,7 +49,7 @@ function ProductsEachCategory() {
             setShowModal(true)
         }
     }
-
+    console.log(wishList)
     if (isLoading || loading) return 'Loading...'
 
     if (error) return 'An error has occurred: ' + error.message;
@@ -62,16 +62,7 @@ function ProductsEachCategory() {
                             <div key={item._id} className='w-[320px]'>
                                 <div className='border relative'>
                                     <img src={item.image} className='w-[300px] h-[250px]' alt="" />
-                                    <button className='absolute top-2 text-2xl text-amber-300 right-2' onClick={() => handleWishlist(item, item._id, user?.uid)}>  <AiFillHeart className={
-                                        wishList?.map(data => {
-                                            if (data.carId === item._id) {
-                                                return 'text-2xl text-red-500'
-                                            }
-                                            else {
-                                                return 'text-2xl text--amber-300'
-                                            }
-                                        })
-                                    } /></button>
+                                    <button className='absolute top-2 text-2xl right-2' onClick={() => handleWishlist(item, item._id, user?.uid)}>  <AiFillHeart className={wishList?.find(data => data.carId == item._id) ? 'text-2xl text-red-600' :'text-2xl text-amber-400'} /></button>
                                     <div className='p-2 bg-slate-200 dark:bg-slate-800'>
                                         <div className='flex items-center justify-between'>
                                             <p className='font-bold uppercase text-black dark:text-slate-200'>{item.name}</p>
@@ -83,26 +74,33 @@ function ProductsEachCategory() {
                                         </div>
                                         <div className='flex justify-between mt-2'>
                                             <p className='capitalize'>Location : {item?.location}</p>
-                                            <p className='capitalize'>
-                                                use : {
+                                            <p className=''>
+                                                 {
                                                     differenceInYears(
                                                         new Date(),
                                                         new Date(item?.year),
                                                     )
-                                                } years</p>
+                                                } years used</p>
                                         </div>
-                                        <div className='flex items-center gap-1'>
-                                            <p className='capitalize my-2'>
-                                                Seller : {item?.sellerName}
-                                            </p>
+                                        <div className='flex items-center justify-between'>
+                                            <div className='flex items-center gap-1'>
+                                                <p className='capitalize my-2'>
+                                                    Seller : {item?.sellerName}
+                                                </p>
+                                                <div>
+                                                    {sellers?.map(seller => {
+                                                        if ((seller.uid === item?.uid) && seller?.verify == true) {
+                                                            return <div className='bg-sky-400 rounded-full'>
+                                                                <span className='text-white'><TiTick /></span>
+                                                            </div>
+                                                        }
+                                                    })}
+                                                </div>
+                                            </div>
                                             <div>
-                                                {sellers?.map(seller => {
-                                                    if ((seller.uid === item?.uid) && seller?.verify == true) {
-                                                        return <div className='bg-sky-400 rounded-full'>
-                                                            <span className='text-white'><TiTick /></span>
-                                                        </div>
-                                                    }
-                                                })}
+                                                <p className='capitalize my-2'>
+                                                    {item?.condition} condition
+                                                </p>
                                             </div>
                                         </div>
                                         <div className='flex justify-between'>

@@ -10,14 +10,18 @@ function UserTable({ data, updateState, setUpdateState }) {
     const [dataLoading, setDataLoading] = useState(false);
     const location = useLocation();
 
-    const handleDelete = (id,uid) => {
+    const handleDelete = (id, uid) => {
         setDataLoading(true)
-        handleDeleteUser(id, setUpdateState, setDataLoading, updateState,uid)
+        handleDeleteUser(id, setUpdateState, setDataLoading, updateState, uid)
     }
 
     const handleVerify = uid => {
         setDataLoading(true)
-        axios.post(`http://localhost:5000/verify-seller/${uid}`).then(res => { toast.success(res.data); setUpdateState(!updateState); setDataLoading(false) }).catch(err => { console.log(err); setDataLoading(false) })
+        axios.post(`http://localhost:5000/verify-seller/${uid}`,{}, {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('your-car-token')}`
+            }
+        }).then(res => { toast.success(res.data); setUpdateState(!updateState); setDataLoading(false) }).catch(err => { console.log(err); setDataLoading(false) })
     }
     if (dataLoading) {
         return <p>Loading...</p>
@@ -43,9 +47,9 @@ function UserTable({ data, updateState, setUpdateState }) {
                             {location.pathname.split('/')[2] === 'all-sellers' && <th scope="col" className="py-3 text-amber-400 px-6 text-center">
                                 Verify
                             </th>}
-                            {location.pathname.split('/')[2] === 'all-sellers' && <th scope="col" className="py-3 text-amber-400 px-6 text-center">
+                            {/* {location.pathname.split('/')[2] === 'all-sellers' && <th scope="col" className="py-3 text-amber-400 px-6 text-center">
                                 Report
-                            </th>}
+                            </th>} */}
                         </tr>
                     </thead>
                     <tbody>
@@ -53,7 +57,7 @@ function UserTable({ data, updateState, setUpdateState }) {
                             data?.map(user =>
                                 <tr key={user.uid} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center p-1">
                                     <td className="font-medium cursor-pointer text-red-600 dark:text-red-500 hover:underline" onClick={() => {
-                                        handleDelete(user._id,user?.uid)
+                                        handleDelete(user._id, user?.uid)
                                     }}>
                                         Remove
                                     </td>
@@ -72,11 +76,11 @@ function UserTable({ data, updateState, setUpdateState }) {
                                             {user?.verify ? <button onClick={() => handleVerify(user?.uid)}>Verified</button> : <button onClick={() => handleVerify(user?.uid)}>Verify Seller Now</button>}
                                         </p>
                                     </td>}
-                                    {location.pathname.split('/')[2] === 'all-sellers' && <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
+                                    {/* {location.pathname.split('/')[2] === 'all-sellers' && <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
                                         <p className='flex gap-2 justify-center items-center'>
                                             {user?.role === 'seller' ? (user?.verify ? <button onClick={() => handleVerify(user?.uid)}>Verified</button> : <button onClick={() => handleVerify(user?.uid)}>Verify Seller Now</button>) : 'N/A'}
                                         </p>
-                                    </td>}
+                                    </td>} */}
                                 </tr>
                             )
                         }

@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 
 export const handleDeleteUser = (id, setUpdateState, setDataLoading, updateState,uid) => {
     confirmAlert({
-        message: 'Are you sure to remove this product ?',
+        message: 'Are you sure to remove this user ?',
         buttons: [
             {
                 label: 'Yes',
@@ -24,7 +24,7 @@ export const handleDeleteUser = (id, setUpdateState, setDataLoading, updateState
             },
             {
                 label: 'No',
-                onClick: () => { }
+                onClick: () => { setDataLoading(false) }
             }
         ]
     });

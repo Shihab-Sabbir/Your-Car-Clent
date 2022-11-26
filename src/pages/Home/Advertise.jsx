@@ -32,7 +32,7 @@ function Advertise() {
                                 <div className='w-full flex items-center justify-between flex-col md:flex-row'>
                                     <div className='md:w-[50%] flex md:flex-col justify-between item-center md:items-start' data-aos="zoom-in-right" data-aos-duration="1000">
                                         <p className='text-black md:block hidden font-bold text-xl md:text-2xl lg:text-4xl 2xl:text-5xl capitalize'>{item.name}</p>
-                                            <img src={item.image} className='w-[50%] max-h-[200px] md:w-full md:max-h-full' alt="" />
+                                        <img src={item.image} className='w-[50%] max-h-[200px] md:w-full md:max-h-full' alt="" />
                                         <div className='flex flex-col gap-3 justify-center md:hidden'>
                                             <p className='text-black font-bold text-lg md:text-2xl lg:text-4xl 2xl:text-5xl capitalize'>{item.name}</p>
                                             <p className='text-black font-serif text-2xl'>${item.resalePrice}</p>
@@ -40,7 +40,8 @@ function Advertise() {
                                         <p className='text-black md:block hidden font-serif text-3xl'>${item.resalePrice}</p>
                                     </div>
                                     <div className='md:w-[50%] flex md:block'>
-                                        <div data-aos="zoom-in-left" data-aos-duration="2000">
+                                        <div data-aos="zoom-in-left" data-aos-duration="2000"
+                                            className='w-full flex md:block'>
                                             <div className='flex gap-1 items-center justify-center'>
                                                 <div className='bg-amber-200  w-[90px] h-[90px] lg:w-[110px] lg:h-[110px] rounded-md m-1 add-info'>
                                                     <div className='flex flex-col text-center justify-evenly h-full'>

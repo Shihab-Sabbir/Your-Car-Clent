@@ -118,10 +118,12 @@ function Register() {
     return (
         <div className='p-2 bg-transparent flex justify-center items-start pt-3 lg:pt-8 min-h-screen'>
             <Helmet>
-                <title>Smile - Register</title>
+                <title>Your Car - Register</title>
             </Helmet>
             <div className="w-full h-fit max-w-md p-8 space-y-3 mb-5 text-slate-800 bg-transparent dark:text-gray-100  border shadow-lg dark:bg-gray-800 dark:border-none">
-                <h1 className="text-2xl text-center font-thin">Registration Form</h1>
+                <p tabIndex={0} role="heading" aria-label="Login to your account" className="text-2xl font-extrabold leading-6 text-gray-800 dark:text-gray-200 text-center">
+                    Registration Form
+                </p>
                 <form className="space-y-6" onSubmit={handleSubmit(handleFormSubmit)}>
                     <div className="space-y-1 text-sm">
                         <label htmlFor="username" className="block dark:text-gray-400 text-slate-800">Username</label>
