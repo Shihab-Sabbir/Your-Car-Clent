@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { differenceInYears } from 'date-fns';
 import { TiTick } from 'react-icons/ti'
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import DataLoadingSpinner from '../../component/DataLoadingSpinner/DataLoadingSpinner';
 import Advertise from '../Home/Advertise';
 import { PhotoView } from 'react-photo-view';
@@ -12,6 +12,8 @@ import BookingModal from '../../component/BookingModal/BookingModal';
 import toast from 'react-hot-toast';
 import { useContext } from 'react';
 import { AuthContext } from '../../UserContext/UserContext';
+import Review from '../../component/Review/Review'
+import ReviewForm from '../../component/ReviewForm/ReviewForm'
 import AOS from 'aos';
 
 function ProductDetails() {
@@ -19,17 +21,24 @@ function ProductDetails() {
     const [loading, setLoading] = useState(true);
     const [sellers, setsellers] = useState(null);
     const [reload, setReload] = useState(true);
-    const { user, dbUser } = useContext(AuthContext);
+    const { user, dbUser, updateState } = useContext(AuthContext);
+    const [reviews, setReviews] = useState([])
     const [showModal, setShowModal] = useState(false)
     const params = useParams();
-    const { category, name, details, resalePrice, model, image, date, sellerName, year, location, condition, uid } = product;
+    const { category, name, details, resalePrice, model, image, date, sellerName, year, location, condition, uid, _id } = product;
     useEffect(() => {
+
         axios.get(`https://your-car-server.vercel.app/single-product/${params.id}`).then(data => { setProduct(data.data); setLoading(false) }).catch(err => { console.log(err); setLoading(false) })
+
         axios.get(`https://your-car-server.vercel.app/users?role=seller`).then(data => { setsellers(data.data); setLoading(false) }).catch(err => { console.log(err); setLoading(false) })
+
+        fetch(`https://your-car-server.vercel.app/review/${_id}`).then(res => res.json()).then(data => { setReviews(data); setLoading(false) }).catch(err => { console.log(err); })
+
         AOS.init();
+
         window.scrollTo(0, 0)
-    }, [reload])
-    const cartHandle = () => { }
+
+    }, [reload, updateState, _id, params])
 
     const handleOrder = () => {
         if (dbUser.role !== 'buyer') { toast.error('Only buyer can book product') }
@@ -37,8 +46,10 @@ function ProductDetails() {
             setShowModal(true)
         }
     }
+    console.log('review :', reviews)
 
     if (loading) return <DataLoadingSpinner />
+
     return (
         <div className='p-1 lg:p-4 mx-auto w-full mt-10 lg:mt-18'>
             <div className="flex justify-center items-center lg:flex-row-reverse flex-col gap-8">
@@ -156,6 +167,14 @@ function ProductDetails() {
                     </div>
                 </div>
             </div>
+            <div className="lg:ml-[220px] my-10">
+                <p className="p-5 font-bold text-xl lg:text-2xl">Questions about product</p>
+                {reviews?.length === 0 && <p className="px-5 text-start uppercase font-semibold my-10">No question Yet !</p>}
+                {!user?.uid && <p className="font-semibold px-5">Do you want to ask question to seller ?<br /> Please <Link to='/login' state={{ from: location }} replace className="font-bold uppercase text-amber-300">Login</Link> to ask question !</p>}
+                {user?.uid && <label htmlFor="my-modal-3" className="m-5 btn bg-amber-300 border-0 text-white dark:hover:bg-gray-700 text-xs">If you have any question please ask.</label>}
+            </div>
+            <ReviewForm title={name} serviceId={_id} insideImage={image} />
+            {reviews?.map(review => <Review key={review._id} review={review} />)}
             <div className='mt-10 lg:mt-20'>
                 <Advertise />
             </div>

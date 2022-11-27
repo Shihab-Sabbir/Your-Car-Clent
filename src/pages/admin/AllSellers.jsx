@@ -14,9 +14,11 @@ function AllSellers() {
 
     useEffect(() => {
         setDataLoading(true)
-        axios.get('https://your-car-server.vercel.app/users', {
-            params: { role: 'seller' }
-        }).then(res => { setSellers(res.data); setDataLoading(false) }).catch(err => console.log(err))
+        axios.get('https://your-car-server.vercel.app/users?role=seller', {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('your-car-token')}`
+            }
+        }).then(res => { setSellers(res.data); setDataLoading(false) }).catch(err => { console.log(err); setDataLoading(false) })
     }, [updateState])
 
     if (loading || dataLoading) {

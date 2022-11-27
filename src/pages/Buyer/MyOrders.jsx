@@ -8,14 +8,13 @@ import { Helmet } from "react-helmet";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import toast from 'react-hot-toast';
-import { signOut } from 'firebase/auth';
 import axios from 'axios';
 import DataLoadingSpinner from '../../component/DataLoadingSpinner/DataLoadingSpinner';
 import { logOut } from '../../Utility/logout';
 function MyOrders() {
     const [orders, setOrders] = useState([]);
     const [dataLoading, setDataLoading] = useState(true);
-    const { user, loading, updateState, setUpdateState, setUser } = useContext(AuthContext);
+    const { user, loading, updateState, setUpdateState, setUser, setDbUser } = useContext(AuthContext);
     const navigate = useNavigate()
     useEffect(() => {
         axios.get(`https://your-car-server.vercel.app/my-orders/${user?.uid}`, {
@@ -26,13 +25,11 @@ function MyOrders() {
             console.log(err);
             setDataLoading(false);
             if (err.response.status == 403) {
-                logOut(user, setUser, navigate);
+                logOut(user, setUser, navigate, setDbUser);
             }
         })
 
     }, [updateState, loading, user])
-
-    // console.log(orders)
 
     if (dataLoading) {
         return <DataLoadingSpinner />
@@ -46,9 +43,19 @@ function MyOrders() {
                     label: 'Yes',
                     onClick: () => {
                         setDataLoading(true)
-                        fetch(`https://your-car-server.vercel.app/detele-order/${id}`, {
-                            method: 'DELETE'
-                        }).then(res => res.json()).then(data => {
+                        fetch(`https://your-car-server.vercel.app/delete-order/${id}`, {
+                            method: 'DELETE',
+                            headers: {
+                                authorization: `Bearer ${localStorage.getItem('your-car-token')}`
+                            }
+                        }).then(res => {
+                            console.log(res)
+                            if (res.status == 403) {
+                                setDataLoading(false)
+                                return logOut(user, setUser, navigate, setDbUser);
+                            }
+                            else { return res.json() }
+                        }).then(data => {
                             if (data.deletedCount > 0) { toast.success('order deleted'); setUpdateState(!updateState); setDataLoading(false) }
                         });
                     }
@@ -60,7 +67,18 @@ function MyOrders() {
             ]
         });
     }
-
+    const handlePaymentDetails = (id, date) => {
+        confirmAlert({
+            title: 'Payment Information',
+            message: `Payment date : ${date} , TXID : ${id}`,
+            buttons: [
+                {
+                    label: 'Close',
+                    onClick: () => { }
+                }
+            ]
+        });
+    }
     return (
         <div className='w-full lg:w-[1176px] p-2 mx-auto pt-10'>
             <Helmet>
@@ -110,7 +128,12 @@ function MyOrders() {
                                         </td>
                                         <td className="py-4 px-6">
                                             <div className='flex justify-center items-center'>
-                                                {order.sold == true ? <Link className='btn btn-xs bg-amber-300 text-center' >PAID</Link>
+                                                {order.sold == true ? <div className='text-center' >
+                                                    {order.payBy === user?.uid ? <div className='flex flex-col gap-2'>
+                                                        <p className='bg-amber-300 btn btn-xs border-0 text-black '>PAID</p>
+                                                        <button className='' onClick={() => handlePaymentDetails(order.txId, order.date)}>Paymeny Info</button>
+                                                    </div> : "ALREADY SOLD"}
+                                                </div>
                                                     :
                                                     <Link to='/dashboard/payment' state={{ price: order.price, id: order.carId }} className='btn btn-xs bg-amber-300 text-center' >PAY</Link>}
                                             </div>

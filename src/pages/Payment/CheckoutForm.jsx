@@ -34,7 +34,7 @@ function CheckoutForm({ price, id }) {
     const [processing, setProcessing] = useState(false)
     const [secret, setSecret] = useState('');
     const [errorMessage, setErrorMessage] = useState(null);
-    const { user, setUser } = useContext(AuthContext);
+    const { user, setUser, setDbUser, updateState, setUpdateState } = useContext(AuthContext);
     const uid = user?.uid
     const navigate = useNavigate();
     useEffect(() => {
@@ -58,7 +58,7 @@ function CheckoutForm({ price, id }) {
             body: JSON.stringify({ txId, date, uid })
         }).then(res => {
             if (res.status == 403) {
-                return logOut(user, setUser, navigate);
+                return logOut(user, setUser, navigate, setDbUser);
             }
             else { return res.json() }
         }).then(data => {
@@ -110,6 +110,7 @@ function CheckoutForm({ price, id }) {
                 elements.getElement(CardCvcElement).clear();
                 elements.getElement(CardExpiryElement).clear();
                 toast.success(`Payment successful , Transection Id : ${paymentIntent?.id} , Please Reload before next payment`);
+                navigate('/dashboard/my-orders')
                 setProcessing(false);
                 handlePayment(id, paymentIntent?.id);
             }
@@ -120,7 +121,7 @@ function CheckoutForm({ price, id }) {
         <div className='flex px-1 flex-col justify-center h-full relative'>
             <button className='absolute -top-5 md:top-[0] left-4 mb-4 btn btn-xs w-fit dark:bg-slate-200 dark:text-slate-900 text-slate-800 hover:text-slate-200 bg-amber-300 shadow  border-none' onClick={() => navigate('/dashboard')}>Back</button>
             <p className='text-center text-xl mb-4 font-bold text-amber-400'>Stripe Payment</p>
-            <form onSubmit={handleSubmit} className='border p-3 max-w-[320px] sm:max-w-[400px] shadow-lg bg-transparent dark:bg-slate-800 dark:shadow-sky-800' >
+            <form onSubmit={handleSubmit} className='payment-form border p-3 max-w-[320px] sm:max-w-[400px] shadow-lg bg-transparent dark:bg-slate-800 dark:shadow-sky-800' >
                 <label className='text-black dark:text-white ' htmlFor="name">User Name</label>
                 <input
                     id="name"

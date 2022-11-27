@@ -12,7 +12,7 @@ import axios from 'axios';
 import DataLoadingSpinner from '../../component/DataLoadingSpinner/DataLoadingSpinner';
 import { logOut } from '../../Utility/logout';
 function Login() {
-    const { setUser, setLoading, dark, user, loading } = useContext(AuthContext);
+    const { setUser, setLoading, dark, user, loading, setDbUser } = useContext(AuthContext);
     const navigate = useNavigate();
     const auth = getAuth(app);
     const location = useLocation();
@@ -39,7 +39,7 @@ function Login() {
         }).then(res => {
             if (res.status == 403) {
                 toast.error('Due to violation of terms and condition , your id is blocked !');
-                logOut(user, setUser, navigate)
+                logOut(user, setUser, navigate, setDbUser)
             }
             else { return res.json() }
         }).then(data => {

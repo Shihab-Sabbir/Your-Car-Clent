@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { PhotoView } from 'react-photo-view';
 import DataLoadingSpinner from '../../component/DataLoadingSpinner/DataLoadingSpinner';
 function Category() {
     const { isLoading, error, data } = useQuery({
@@ -22,12 +21,10 @@ function Category() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                     {
                         data?.map(item =>
-                            <div key={item._id} className='w-[320px] flex flex-col'>
-                                <Link to={`/category/${item.categoryId}`} className='text-center text-2xl font-bold uppercase my-8 text-amber-300 '>{item.category}</Link>
-                                <PhotoView src={item.image}>
-                                    <img src={item.image} className='w-[300px] h-[250px] cursor-zoom-in' alt="" />
-                                </PhotoView>
-                            </div>
+                            <Link to={`/category/${item.categoryId}`} key={item._id} className='w-[320px] flex flex-col'>
+                                <p className='text-center text-2xl font-bold uppercase my-8 text-amber-400 '>{item.category}</p>
+                                <img src={item.image} className='w-[300px] h-[250px]' alt="" />
+                            </Link>
                         )
                     }
                 </div>

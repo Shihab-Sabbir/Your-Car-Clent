@@ -22,7 +22,9 @@ function ProductsEachCategory() {
 
     if (error) return 'An error has occurred: ' + error.message;
     return (
-        <DisplayProducts data={data} />
+        <div className='mt-6 md:mt-8 lg:mt-10'>
+            <DisplayProducts data={data} />
+       </div>
     )
 }
 

@@ -17,7 +17,7 @@ import { logOut } from '../../Utility/logout';
 function MyProduct() {
     const [products, setProducts] = useState([]);
     const [dataLoading, setDataLoading] = useState(true);
-    const { user, loading, updateState, setUpdateState, auth, setUser } = useContext(AuthContext);
+    const { user, loading, updateState, setUpdateState, auth, setUser, setDbUser } = useContext(AuthContext);
 
     const navigate = useNavigate()
 
@@ -47,7 +47,7 @@ function MyProduct() {
                             }
                         }).then(res => {
                             if (res.status == 403) {
-                                return logOut(user, setUser, navigate);
+                                return logOut(user, setUser, navigate, setDbUser);
                             }
                             else { return res.json() }
                         }).then(data => {
@@ -74,7 +74,7 @@ function MyProduct() {
             console.log(err);
             setDataLoading(false);
             if (err.response.status == 403) {
-                logOut(user, setUser, navigate);
+                logOut(user, setUser, navigate, setDbUser);
             }
         })
     }

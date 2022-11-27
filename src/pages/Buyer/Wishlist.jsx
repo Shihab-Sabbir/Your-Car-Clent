@@ -6,7 +6,6 @@ import { useState } from 'react';
 import { TiTick } from 'react-icons/ti'
 import { ImCross } from 'react-icons/im'
 import { useEffect } from 'react';
-import BookingModal from '../../component/BookingModal/BookingModal';
 import { useContext } from 'react';
 import { AuthContext } from '../../UserContext/UserContext';
 import { Link, useNavigate } from 'react-router-dom';
@@ -53,7 +52,7 @@ function Wishlist() {
 
 
     return (
-        <div>
+        <div className='mt-6 md:mt-8 lg:mt-10'>
             <div className='flex justify-center items-center'>
                 <Helmet>
                     <title>Your Car - Wishlist</title>

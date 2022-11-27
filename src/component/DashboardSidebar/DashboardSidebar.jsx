@@ -1,10 +1,8 @@
 import React, { useContext } from 'react';
 import { useEffect } from 'react';
-import { useState } from 'react';
 import { IoArrowBackSharp } from 'react-icons/io5';
 import { MdOutlineLightMode, MdOutlineDarkMode } from 'react-icons/md';
 import { NavLink, useNavigate } from 'react-router-dom';
-import Logout from '../../pages/Logout/Logout';
 import { AuthContext } from '../../UserContext/UserContext';
 function DashboardSidebar({ toggle }) {
     const { dark, setDark, user, dbUser, setDbUser } = useContext(AuthContext);
@@ -43,6 +41,9 @@ function DashboardSidebar({ toggle }) {
                                 <NavLink to="/dashboard/all-sellers"
                                     end
                                     className={({ isActive }) => (isActive ? "active-class" : "non-active-class dark:non-active-class")}>All Sellers</NavLink>
+                                <NavLink to="/dashboard/reports"
+                                    end
+                                    className={({ isActive }) => (isActive ? "active-class" : "non-active-class dark:non-active-class")}>Reports</NavLink>
                                 <NavLink to="/logout"
                                     end
                                     className={({ isActive }) => (isActive ? "active-class" : "non-active-class dark:non-active-class")}>Logout</NavLink>

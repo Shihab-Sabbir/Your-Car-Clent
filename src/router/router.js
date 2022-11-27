@@ -21,6 +21,8 @@ import Wishlist from "../pages/Buyer/Wishlist";
 import DashboardWellcome from "../pages/DashboardWellcome/DashboardWellcome";
 import AdminRoute from "./AdminRoute";
 import ProductDetails from "../pages/ProductDetails/ProductDetails";
+import Allproducts from "../pages/Allproducts/Allproducts";
+import Reports from "../pages/admin/Reports";
 export const router = createBrowserRouter([
     {
         path: '/', errorElement: <Errorpages />, element: <Layout />, children: [
@@ -31,6 +33,7 @@ export const router = createBrowserRouter([
             { path: '/profile', element: <Profile /> },
             { path: '/blog', element: <Blog /> },
             { path: '/search', element: <Search /> },
+            { path: '/all-products', element: <Allproducts /> },
             { path: '/category/:id', element: <ProtectedRoute><ProductsEachCategory /></ProtectedRoute> },
             { path: '/product-details/:id', element: <ProtectedRoute><ProductDetails /></ProtectedRoute> },
         ]
@@ -45,6 +48,7 @@ export const router = createBrowserRouter([
             { path: '/dashboard/my-orders', element: <MyOrders /> },
             { path: '/dashboard/all-sellers', element: <AdminRoute><AllSellers /></AdminRoute> },
             { path: '/dashboard/all-buyers', element: <AdminRoute><AllBuyers /></AdminRoute> },
+            { path: '/dashboard/reports', element: <AdminRoute><Reports /></AdminRoute> },
         ]
     }
 ])

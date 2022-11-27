@@ -44,7 +44,7 @@ export default function Header() {
                         <Link to='/'>
                             <li onClick={() => selected(0)} className={`${style[0] ? 'text-white bg-amber-400' : 'text-gray-600 border border-white bg-gray-50'}  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800  cursor-pointer px-3 py-2.5 font-normal text-xs leading-3 shadow-md rounded`}>Home</li>
                         </Link>
-                        <Link to='/'>
+                        <Link to='/all-products'>
                             <li onClick={() => selected(1)} className={`${style[1] ? 'text-white bg-amber-400' : 'text-gray-600 border border-white bg-gray-50'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 cursor-pointer px-3 py-2.5 font-normal text-xs leading-3 shadow-md rounded`}>Products</li>
                         </Link>
                         <Link to='/dashboard'>
@@ -108,11 +108,17 @@ export default function Header() {
                             <Link to='/'>
                                 <li onClick={() => setSelectedText("Home")} className="px-4 py-3 bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-200 border-gray-50 focus:outline-none focus:bg-gray-100 hover:bg-gray-100 duration-100 cursor-pointer text-xs leading-3 font-normal">Home</li>
                             </Link>
+                            <Link to='/all-products'>
+                                <li onClick={() => setSelectedText("Products")} className="px-4 py-3 bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-200 border-gray-50 focus:outline-none focus:bg-gray-100 hover:bg-gray-100 duration-100 cursor-pointer text-xs leading-3 font-normal">Products</li>
+                            </Link>
                             <Link to='/dashboard'>
                                 <li onClick={() => setSelectedText("Dashboard")} className="px-4 py-3 bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-200 border-gray-50 focus:outline-none focus:bg-gray-100 hover:bg-gray-100 duration-100 cursor-pointer text-xs leading-3 font-normal">Dashboard</li>
                             </Link>
                             <Link to='/blog'>
                                 <li onClick={() => setSelectedText("Blog")} className="px-4 py-3 bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-200 border-gray-50 focus:outline-none focus:bg-gray-100 hover:bg-gray-100 duration-100 cursor-pointer text-xs leading-3 font-normal">Blog</li>
+                            </Link>
+                            <Link to='/contact'>
+                                <li onClick={() => setSelectedText("Contact")} className="px-4 py-3 bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-200 border-gray-50 focus:outline-none focus:bg-gray-100 hover:bg-gray-100 duration-100 cursor-pointer text-xs leading-3 font-normal">Contact</li>
                             </Link>
                             {!user?.uid && <Link to='/login'>
                                 <li onClick={() => setSelectedText("Utility")} className="px-4 py-3 bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-200 border-gray-50 focus:outline-none focus:bg-gray-100 hover:bg-gray-100 duration-100 cursor-pointer text-xs leading-3 font-normal">Login</li>

@@ -8,7 +8,7 @@ form {
 }
 
 
-input,
+ input,
 select {
   display: flex;
   border: none;
@@ -26,9 +26,7 @@ select {
   width: 500px;
 }
 
-
-
-input::placeholder {
+.payment-form input::placeholder {
   color: #aab7c4;
 }
 

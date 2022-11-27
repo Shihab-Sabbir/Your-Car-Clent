@@ -10,16 +10,19 @@ import toast from 'react-hot-toast';
 import { useContext } from 'react';
 import { AuthContext } from '../../UserContext/UserContext';
 import DataLoadingSpinner from '../../component/DataLoadingSpinner/DataLoadingSpinner';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { PhotoView } from 'react-photo-view';
+import { logOut } from '../../Utility/logout';
 
 function DisplayProducts({ data }) {
     const [sellers, setsellers] = useState(null);
-    const { user, dbUser } = useContext(AuthContext);
+    const { user, dbUser, setUser } = useContext(AuthContext);
+    const [bookingData, setBookingData] = useState(null)
     const [wishList, setWishList] = useState(['random']);
     const [loading, setLoading] = useState(true);
     const [reload, setReload] = useState(true);
     const [showModal, setShowModal] = useState(false)
+    const navigate = useNavigate();
 
     useEffect(() => {
         window.scrollTo(0, 0)
@@ -34,10 +37,29 @@ function DisplayProducts({ data }) {
             axios.post(`https://your-car-server.vercel.app/wishlist`, { item, carId, uid }).then(data => { toast.success(data.data); setReload(!reload); setLoading(false) }).catch(err => { console.log(err); setLoading(false) })
         }
     }
-    const handleOrder = () => {
+    const handleOrder = (item) => {
         if (dbUser.role !== 'buyer') { toast.error('Only buyer can book product') }
         else {
+            setBookingData(item)
             setShowModal(true)
+        }
+    }
+
+    const handleReport = (id) => {
+        if (dbUser.role !== 'buyer') { toast.error('Only buyer can add wish items') }
+        else {
+            setLoading(true)
+            axios.patch(`https://your-car-server.vercel.app/report/${id}`, {}, {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem('your-car-token')}`
+                }
+            }).then(data => { toast.success('Reported to admin! Admin will verify this report and take action accordingly'); setLoading(false) }).catch(err => {
+                console.log(err);
+                setLoading(false);
+                if (err.response.status == 403) {
+                    logOut(user, setUser, navigate);
+                }
+            })
         }
     }
     if (loading) return <DataLoadingSpinner />
@@ -47,7 +69,7 @@ function DisplayProducts({ data }) {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                     {
                         data?.map(item =>
-                            <div key={item._id} className='w-[320px]'>
+                            <div key={item._id} className='w-[320px] text-black dark:text-slate-200'>
                                 <div className='border relative'>
                                     <PhotoView src={item.image}>
                                         <img src={item.image} className='w-[300px] h-[250px] cursor-zoom-in' alt="" />
@@ -62,6 +84,7 @@ function DisplayProducts({ data }) {
                                             <p className='font-bold'><span className='text-xl'>$</span>{item?.resalePrice}</p>
                                             <p className='text-xs pt-[6px]'>Original price : ${item?.marketPrice}</p>
                                         </div>
+                                        <p className=''>Purchased in : {item?.year}</p>
                                         <div className='flex justify-between mt-2'>
                                             <p className='capitalize'>Location : {item?.location}</p>
                                             <p className=''>
@@ -93,12 +116,17 @@ function DisplayProducts({ data }) {
                                                 </p>
                                             </div>
                                         </div>
+                                        <p className='my-1'>Suspicious product ?
+                                            <button className='pl-2 underline' onClick={() => handleReport(item._id)}>
+                                                Report to admin
+                                            </button>
+                                        </p>
                                         <div className='flex justify-between items-center'>
                                             <label
                                                 htmlFor="booking-modal"
-                                                className='my-2 btn btn-sm bg-amber-400 border-0 text-slate-100 shadow-md dark:hover:border-white dark:hover:border' onClick={handleOrder}>Book now</label>
-                                            {showModal && <BookingModal item={item} setShowModal={setShowModal} />}
-                                            <Link to={`/product-details/${item._id}`} className='text-amber-300' >Details</Link>
+                                                className='my-2 btn btn-sm bg-amber-400 border-0 text-slate-100 shadow-md dark:hover:border-white dark:hover:border' onClick={() => handleOrder(item)}>Book now</label>
+                                            {showModal && <BookingModal item={bookingData} setShowModal={setShowModal} />}
+                                            <Link to={`/product-details/${item._id}`} className='' >Details</Link>
                                         </div>
                                     </div>
                                 </div>

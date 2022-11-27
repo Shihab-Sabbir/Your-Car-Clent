@@ -36,7 +36,6 @@ function BookingModal({ item, setShowModal }) {
             image,
             carId
         }
-
         fetch(`https://your-car-server.vercel.app/order`, {
             method: 'POST',
             headers: {
@@ -45,7 +44,6 @@ function BookingModal({ item, setShowModal }) {
             },
             body: JSON.stringify(booking)
         }).then(res => {
-            console.log(res, res.status)
             if (res.status == 503) {
                 setLoading(false)
                 setShowModal(false)
@@ -58,6 +56,7 @@ function BookingModal({ item, setShowModal }) {
         }).then(data => {
             if (data.acknowledged) {
                 toast.success('Order placed !');
+                form.reset();
                 setShowModal(false);
                 setLoading(false)
             }
@@ -71,16 +70,16 @@ function BookingModal({ item, setShowModal }) {
     return (
         <>
             <input type="checkbox" id="booking-modal" className="modal-toggle" />
-            <div className="modal">
-                <div className="modal-box relative">
-                    <label htmlFor="booking-modal" className="btn btn-sm bg-amber-300 text-black btn-circle absolute right-2 top-2">✕</label>
+            <div className="modal ">
+                <div className="modal-box relative bg-amber-200 dark:bg-slate-600 ">
+                    <label htmlFor="booking-modal" className="btn btn-sm bg-amber-400  btn-circle absolute right-2 top-2 border-0 text-white">✕</label>
                     <form onSubmit={handleBooking} className='grid grid-cols-1 gap-3 my-10'>
-                        <input name="productName" disabled defaultValue={item?.name} className="my-1  text-white  input w-full input-bordered " />
-                        <input name="price" defaultValue={item?.resalePrice} disabled className="my-1  text-white   input w-full input-bordered" />
-                        <input type="text" name='buyerName' disabled value={user?.displayName} className="my-1  text-white   input w-full input-bordered " />
-                        <input name="email" defaultValue={user?.email} disabled className="bg-slate-200 dark:bg-slate-800 my-1 text-white   input w-full input-bordered" />
-                        <input type="text" name='meetingPlace' className="bg-slate-200 dark:bg-slate-800 my-1 dark:text-slate-200 text-black input w-full input-bordered " placeholder="Meeting Place" />
-                        <input name="phone" type="tel" placeholder="Phone Number" className="bg-slate-200 dark:bg-slate-800 my-1 dark:text-slate-200 text-black  input w-full input-bordered" />
+                        <input name="productName" value={item?.name} className="bg-slate-200 dark:bg-slate-800 my-1 dark:text-slate-200 text-black  input w-full input-bordered" />
+                        <input name="price" value={item?.resalePrice} className="bg-slate-200 dark:bg-slate-800 my-1 dark:text-slate-200 text-black  input w-full input-bordered" />
+                        <input type="text" name='buyerName' value={user?.displayName} className="bg-slate-200 dark:bg-slate-800 my-1 dark:text-slate-200 text-black  input w-full input-bordered" />
+                        <input name="email" value={user?.email} className="bg-slate-200 dark:bg-slate-800 my-1 dark:text-slate-200 text-black  input w-full input-bordered" />
+                        <input required type="text" name='meetingPlace' className="bg-slate-200 dark:bg-slate-800 my-1 dark:text-slate-200 text-black input w-full input-bordered " placeholder="Meeting Place" />
+                        <input required name="phone" type="tel" placeholder="Phone Number" className="bg-slate-200 dark:bg-slate-800 my-1 dark:text-slate-200 text-black  input w-full input-bordered" />
                         <button type='submit' className={`bg-amber-300 rounded-lg text-black py-3 w-full hover:bg-amber-500 hover:text-white p-2 font-bold text-xs ${loading ? 'btn-disabled' : ''}`}>{loading ? <div className='flex gap-2 justify-center items-center'>
                             <img src={spinner} className='w-8' /> <p>Loading...</p>
                         </div> : 'SUBMIT'}</button>

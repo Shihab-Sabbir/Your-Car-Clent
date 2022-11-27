@@ -144,9 +144,9 @@ function Register() {
                             {errors.photo && <p className='text-red-600' >{errors.photo?.message}</p>}
                         </div>
                     </div>
-                    <div className="space-y-1 text-sm">
+                    <div className="space-y-1 text-sm ">
                         <label htmlFor="role" className="block dark:text-gray-400 text-slate-800">Register for ?</label>
-                        <select className="select-bordered w-full text-sm" {...register("role")}>
+                        <select className="select-bordered w-full text-sm dark:bg-slate-900" {...register("role")}>
                             <option defaultChecked value='buyer'>Buyer</option>
                             <option value='seller'>Seller</option>
                         </select>
