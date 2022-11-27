@@ -10,6 +10,7 @@ import Logout from '../Logout/Logout';
 import { Helmet } from "react-helmet";
 import axios from 'axios';
 import DataLoadingSpinner from '../../component/DataLoadingSpinner/DataLoadingSpinner';
+import { logOut } from '../../Utility/logout';
 function Login() {
     const { setUser, setLoading, dark, user, loading } = useContext(AuthContext);
     const navigate = useNavigate();
@@ -18,12 +19,14 @@ function Login() {
     const from = location.state?.from?.pathname || '/';
     const GoogleProvider = new GoogleAuthProvider();
     const userEmail = useRef();
-
+    window.scrollTo(0, 0)
     const userRole = (userData) => {
         const user = { ...userData, role: 'buyer' }
         axios.post('https://your-car-server.vercel.app/register', { user }).then((response) => console.log(response))
     }
-
+    if (user?.uid) {
+        return navigate('/logout')
+    }
     const jwtToken = (user) => {
         setLoading(true)
         const uid = user?.uid;
@@ -33,7 +36,13 @@ function Login() {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({ uid }),
-        }).then(res => res.json()).then(data => {
+        }).then(res => {
+            if (res.status == 403) {
+                toast.error('Due to violation of terms and condition , your id is blocked !');
+                logOut(user, setUser, navigate)
+            }
+            else { return res.json() }
+        }).then(data => {
             if (data.token) {
                 localStorage.setItem('your-car-token', data.token)
                 setUser(user);
@@ -100,12 +109,13 @@ function Login() {
         )
     }
 
+
     return (
         <div className='flex justify-center p-2 items-start pt-3 lg:pt-8 md:min-h-screen bg-transparent'>
-            <Helmet>
-                <title>Your Car - Login</title>
-            </Helmet>
-            {!user?.uid && <div className='flex lg:flex-row w-full flex-col items-center justify-evenly gap-10'>
+            <div className='flex lg:flex-row w-full flex-col items-center justify-evenly gap-10'>
+                <Helmet>
+                    <title>Your Car - Login</title>
+                </Helmet>
                 <div className="w-full h-fit max-w-md p-8 space-y-3  bg-gradient-to-r dark:bg-gray-800 bg-transparent dark:text-gray-100 border dark:border-none shadow-lg dark:shadow-xl">
                     <p tabIndex={0} role="heading" aria-label="Login to your account" className="text-2xl font-extrabold leading-6 text-gray-800 dark:text-gray-200 text-center">
                         Login to your account
@@ -145,8 +155,7 @@ function Login() {
                         <Link rel="noopener noreferrer" to='/register' className="underline text-slate-700 dark:text-slate-300  px-2 text-sm font-bold" type='submit'>Sign up</Link>
                     </p>
                 </div>
-            </div>}
-            {user?.uid && <Logout />}
+            </div>
         </div>
     )
 }

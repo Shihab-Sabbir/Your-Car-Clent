@@ -13,6 +13,7 @@ import toast from 'react-hot-toast';
 import { signOut } from 'firebase/auth';
 import axios from 'axios';
 import DataLoadingSpinner from '../../component/DataLoadingSpinner/DataLoadingSpinner';
+import { logOut } from '../../Utility/logout';
 function MyProduct() {
     const [products, setProducts] = useState([]);
     const [dataLoading, setDataLoading] = useState(true);
@@ -44,7 +45,12 @@ function MyProduct() {
                             headers: {
                                 authorization: `Bearer ${localStorage.getItem('your-car-token')}`
                             }
-                        }).then(res => res.json()).then(data => {
+                        }).then(res => {
+                            if (res.status == 403) {
+                                return logOut(user, setUser, navigate);
+                            }
+                            else { return res.json() }
+                        }).then(data => {
                             if (data.deletedCount > 0) { toast.success('product deleted'); setUpdateState(!updateState); setDataLoading(false) }
                             console.log(data)
                         }).catch(err => { console.log(err); setDataLoading(false) });
@@ -64,13 +70,19 @@ function MyProduct() {
             headers: {
                 authorization: `Bearer ${localStorage.getItem('your-car-token')}`
             }
-        }, { info }).then(res => { toast.success(res.data); setUpdateState(!updateState); setDataLoading(false) }).catch(err => { console.log(err) })
+        }, { info }).then(res => { toast.success(res.data); setUpdateState(!updateState); setDataLoading(false) }).catch(err => {
+            console.log(err);
+            setDataLoading(false);
+            if (err.response.status == 403) {
+                logOut(user, setUser, navigate);
+            }
+        })
     }
 
     return (
         <div className='w-full lg:w-[1176px] p-2 mx-auto pt-10'>
             <Helmet>
-                <title>Smile - product</title>
+                <title>Your Car - product</title>
             </Helmet>
             <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
                 {(products?.length > 0) ?

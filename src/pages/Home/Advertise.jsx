@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query'
 import addBg from '../../asset/images/addBg.png'
 import DataLoadingSpinner from '../../component/DataLoadingSpinner/DataLoadingSpinner';
+import { Link } from 'react-router-dom';
 function Advertise() {
     const [add, setAdd] = useState([]);
     const { isLoading, error, data } = useQuery({
@@ -29,8 +30,9 @@ function Advertise() {
                 <Carousel slideInterval={5000}>
                     {
                         data.map(item =>
-                            <div key={item._id} className='p-6 h-full w-full flex justify-center items-center rounded-md' style={{ background: `url(${addBg})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
+                            <div key={item._id} className='p-6 h-full w-full flex justify-center items-center rounded-md relative' style={{ background: `url(${addBg})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
                                 <div className='w-full flex items-center justify-between flex-col md:flex-row'>
+                                    <Link to={`/product-details/${item._id}`} className="absolute top-1 right-6 text-black font-bold"> Click to view details...</Link>
                                     <div className='md:w-[50%] min-h-[130px] flex md:flex-col justify-evenly md:justify-between item-center md:items-start' data-aos="zoom-in-right" data-aos-duration="1000">
                                         <p className='text-black md:block hidden font-bold text-xl md:text-2xl lg:text-4xl 2xl:text-5xl capitalize'>{item.name}</p>
                                         <img src={item.image} className='w-[50%] h-[130px] md:h-[300px] md:w-full max-h-full' alt="" />

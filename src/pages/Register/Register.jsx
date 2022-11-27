@@ -11,6 +11,7 @@ import axios from 'axios';
 import { PhotoView } from 'react-photo-view';
 import DataLoadingSpinner from '../../component/DataLoadingSpinner/DataLoadingSpinner';
 function Register() {
+    window.scrollTo(0, 0)
     const auth = getAuth(app);
     const { setUser, setLoading, loading } = useContext(AuthContext);
     const location = useLocation();

@@ -28,10 +28,10 @@ function AdminRoute({ children }) {
             </div>
         )
     }
-    if (user?.uid && dbUser.role === 'admin') {
+    if (dbUser.role === 'admin') {
         return children;
     }
-    if (user?.uid && dbUser.role && dbUser.role !== 'admin') {
+    if (dbUser.role !== 'admin') {
         toast.error('Unathorized Access !');
         return <Navigate to='/' state={{ from: location }
         } replace />

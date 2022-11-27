@@ -53,9 +53,12 @@ export default function Header() {
                         <Link to='/blog'>
                             <li onClick={() => selected(3)} className={`${style[3] ? 'text-white bg-amber-400' : 'text-gray-600 border border-white bg-gray-50'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 cursor-pointer px-3 py-2.5 font-normal text-xs leading-3 shadow-md rounded`}>Blog</li>
                         </Link>
-                        <Link to='/login'>
-                            <li onClick={() => selected(4)} className={`${style[4] ? 'text-white bg-amber-400' : 'text-gray-600 border border-white bg-gray-50'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 cursor-pointer px-3 py-2.5 font-normal text-xs leading-3 shadow-md rounded`}>{user?.uid ? 'Logout' : "Login"}</li>
-                        </Link>
+                        {!user?.uid && <Link to='/login'>
+                            <li onClick={() => selected(4)} className={`${style[4] ? 'text-white bg-amber-400' : 'text-gray-600 border border-white bg-gray-50'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 cursor-pointer px-3 py-2.5 font-normal text-xs leading-3 shadow-md rounded`}>Login</li>
+                        </Link>}
+                        {user?.uid && <Link to='/logout'>
+                            <li onClick={() => selected(4)} className={`${style[4] ? 'text-white bg-amber-400' : 'text-gray-600 border border-white bg-gray-50'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 cursor-pointer px-3 py-2.5 font-normal text-xs leading-3 shadow-md rounded`}>Logout</li>
+                        </Link>}
                         <Link to='/'>
                             <li onClick={() => selected(5)} className={`${style[5] ? 'text-white bg-amber-400' : 'text-gray-600 border border-white bg-gray-50'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 cursor-pointer px-3 py-2.5 font-normal text-xs leading-3 shadow-md rounded`}>Contact</li>
                         </Link>
@@ -111,9 +114,12 @@ export default function Header() {
                             <Link to='/blog'>
                                 <li onClick={() => setSelectedText("Blog")} className="px-4 py-3 bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-200 border-gray-50 focus:outline-none focus:bg-gray-100 hover:bg-gray-100 duration-100 cursor-pointer text-xs leading-3 font-normal">Blog</li>
                             </Link>
-                            <Link to='/login'>
-                                <li onClick={() => setSelectedText("Utility")} className="px-4 py-3 bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-200 border-gray-50 focus:outline-none focus:bg-gray-100 hover:bg-gray-100 duration-100 cursor-pointer text-xs leading-3 font-normal">{user?.uid ? 'Logout' : "Login"}</li>
-                            </Link>
+                            {!user?.uid && <Link to='/login'>
+                                <li onClick={() => setSelectedText("Utility")} className="px-4 py-3 bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-200 border-gray-50 focus:outline-none focus:bg-gray-100 hover:bg-gray-100 duration-100 cursor-pointer text-xs leading-3 font-normal">Login</li>
+                            </Link>}
+                            {user?.uid && <Link to='/logout'>
+                                <li onClick={() => setSelectedText("Utility")} className="px-4 py-3 bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-200 border-gray-50 focus:outline-none focus:bg-gray-100 hover:bg-gray-100 duration-100 cursor-pointer text-xs leading-3 font-normal">Logout</li>
+                            </Link>}
                         </ul>
                     </div>
                 </div>

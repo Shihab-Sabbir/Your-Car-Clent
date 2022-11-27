@@ -1,19 +1,54 @@
 import axios from 'axios';
 import React from 'react'
+import { useContext } from 'react';
 import { useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
+import { Helmet } from 'react-helmet';
 import toast from 'react-hot-toast';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import DataLoadingSpinner from '../../component/DataLoadingSpinner/DataLoadingSpinner';
-import { handleDeleteUser } from '../../Utility/userDelete';
+import { AuthContext } from '../../UserContext/UserContext';
+import { logOut } from '../../Utility/logout';
 
 function UserTable({ data, updateState, setUpdateState }) {
     const [dataLoading, setDataLoading] = useState(false);
+    const { user, setUser } = useContext(AuthContext);
     const location = useLocation();
-
+    const navigate = useNavigate();
     const handleDelete = (id, uid) => {
-        setDataLoading(true)
-        handleDeleteUser(id, setUpdateState, setDataLoading, updateState, uid)
+        confirmAlert({
+            message: 'Are you sure to remove this user ?',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => {
+                        setDataLoading(true)
+                        fetch(`https://your-car-server.vercel.app/delete-user/${id}?uid=${uid}`, {
+                            method: 'DELETE',
+                            headers: {
+                                authorization: `Bearer ${localStorage.getItem('your-car-token')}`
+                            }
+                        }).then(res => {
+                            console.log(res)
+                            if (res.status == 403) {
+                                return logOut(user, setUser, navigate);
+                            }
+                            else { return res.json() }
+                        }).then(data => {
+                            if (data.modifiedCount > 0 || data.matchedCount > 0) {
+                                toast.success('User removed !');
+                                setUpdateState(!updateState);
+                                setDataLoading(false);
+                            }
+                        }).catch(err => { console.log(err); setDataLoading(false) })
+                    }
+                },
+                {
+                    label: 'No',
+                    onClick: () => { setDataLoading(false) }
+                }
+            ]
+        });
     }
 
     const handleVerify = uid => {
@@ -22,13 +57,24 @@ function UserTable({ data, updateState, setUpdateState }) {
             headers: {
                 authorization: `Bearer ${localStorage.getItem('your-car-token')}`
             }
-        }).then(res => { toast.success(res.data); setUpdateState(!updateState); setDataLoading(false) }).catch(err => { console.log(err); setDataLoading(false) })
+        }).then(res => {
+            toast.success(res.data); setUpdateState(!updateState); setDataLoading(false)
+        }).catch(err => {
+            console.log(err);
+            setDataLoading(false);
+            if (err.response.status == 403) {
+                logOut(user, setUser, navigate);
+            }
+        })
     }
     if (dataLoading) {
         return <DataLoadingSpinner />
     }
     return (
         <div className="overflow-x-auto relative shadow-md sm:rounded-lg p-1 lg:p-2 xl:p-4">
+            <Helmet>
+                <title>Your Car - Admin Panel</title>
+            </Helmet>
             {(data?.length > 0) ?
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 overflow-x-auto">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

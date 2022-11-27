@@ -1,21 +1,43 @@
 import axios from 'axios';
 import React from 'react'
 import { useEffect } from 'react';
+import { differenceInYears } from 'date-fns';
+import { TiTick } from 'react-icons/ti'
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import DataLoadingSpinner from '../../component/DataLoadingSpinner/DataLoadingSpinner';
 import Advertise from '../Home/Advertise';
 import { PhotoView } from 'react-photo-view';
+import BookingModal from '../../component/BookingModal/BookingModal';
+import toast from 'react-hot-toast';
+import { useContext } from 'react';
+import { AuthContext } from '../../UserContext/UserContext';
+import AOS from 'aos';
+
 function ProductDetails() {
     const [product, setProduct] = useState({});
     const [loading, setLoading] = useState(true);
+    const [sellers, setsellers] = useState(null);
     const [reload, setReload] = useState(true);
+    const { user, dbUser } = useContext(AuthContext);
+    const [showModal, setShowModal] = useState(false)
     const params = useParams();
-    const { category, name, details, resalePrice, model, image } = product;
+    const { category, name, details, resalePrice, model, image, date, sellerName, year, location, condition, uid } = product;
     useEffect(() => {
         axios.get(`https://your-car-server.vercel.app/single-product/${params.id}`).then(data => { setProduct(data.data); setLoading(false) }).catch(err => { console.log(err); setLoading(false) })
+        axios.get(`https://your-car-server.vercel.app/users?role=seller`).then(data => { setsellers(data.data); setLoading(false) }).catch(err => { console.log(err); setLoading(false) })
+        AOS.init();
+        window.scrollTo(0, 0)
     }, [reload])
     const cartHandle = () => { }
+
+    const handleOrder = () => {
+        if (dbUser.role !== 'buyer') { toast.error('Only buyer can book product') }
+        else {
+            setShowModal(true)
+        }
+    }
+
     if (loading) return <DataLoadingSpinner />
     return (
         <div className='p-1 lg:p-4 mx-auto w-full mt-10 lg:mt-18'>
@@ -59,10 +81,7 @@ function ProductDetails() {
                         </div>
                         <p className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 font-normal text-base leading-4 text-gray-700 hover:underline hover:text-gray-800 duration-100 cursor-pointer text-gray-600 dark:text-gray-200">{product?.ratingsCount || 23} reviews</p>
                     </div>
-
-                    <p className=" font-normal text-base leading-6 text-gray-600 dark:text-gray-200 mt-7 text-justify">{details ? details : "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using. Lorem Ipsum is that it has a more-or-less normal distribution of letters."}</p>
-                    <p className=" font-semibold lg:text-2xl text-xl text-gray-600 dark:text-gray-200 lg:leading-6 leading-5 mt-6 ">$ {resalePrice}</p>
-
+                    <p className='font-semibold text-xs border w-fit px-2 mt-4 bg-amber-200 py-[2px] uppercase text-black'>{date}</p>
                     <div className="lg:mt-11 mt-10">
                         <hr className=" bg-gray-200 w-full my-2" />
                         <div className=" flex flex-row justify-between items-center mt-4">
@@ -71,8 +90,43 @@ function ProductDetails() {
                         </div>
                         <hr className=" bg-gray-200 w-full mt-4" />
                     </div>
-
-                    <button className="focus:outline-none focus:ring-2 hover:bg-black focus:ring-offset-2 focus:ring-gray-800 font-medium text-base leading-4 text-white bg-gray-800 w-full py-5 lg:mt-12 mt-6" onClick={cartHandle}>{!loading ? "Add to shopping bag" : "Remove from shopping bag"}</button>
+                    <p className=" font-normal text-base leading-6 text-gray-600 dark:text-gray-200 mt-7 text-justify">{details ? details : "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using. Lorem Ipsum is that it has a more-or-less normal distribution of letters."}</p>
+                    <div className='flex justify-between mt-6'>
+                        <p className='text-base leading-6 text-gray-600 dark:text-gray-200'>Location : {location}</p>
+                        <p className='text-base leading-6 text-gray-600 dark:text-gray-200'>
+                            {
+                                differenceInYears(
+                                    new Date(),
+                                    new Date(year),
+                                )
+                            } years used</p>
+                    </div>
+                    <div className='flex items-center justify-between'>
+                        <div className='flex items-center gap-2'>
+                            <p className='capitalize my-2 text-base leading-6 text-gray-600 dark:text-gray-200'>
+                                Seller name : {sellerName}
+                            </p>
+                            <div>
+                                {sellers?.map(seller => {
+                                    if ((seller.uid === uid) && seller?.verify == true) {
+                                        return <div className='bg-sky-400 rounded-full'>
+                                            <span className='text-white'><TiTick /></span>
+                                        </div>
+                                    }
+                                })}
+                            </div>
+                        </div>
+                        <div>
+                            <p className='capitalize my-2 text-base leading-6 text-gray-600 dark:text-gray-200'>
+                                {condition} condition
+                            </p>
+                        </div>
+                    </div>
+                    <p className=" font-semibold lg:text-2xl text-xl text-gray-600 dark:text-gray-200 lg:leading-6 leading-5 mt-6 ">$ {resalePrice}</p>
+                    <label
+                        htmlFor="booking-modal"
+                        className="btn hover:bg-amber-400 font-medium text-base leading-4 text-white bg-amber-300 w-full place-content-center py-8 rounded-none lg:mt-12 mt-6" onClick={handleOrder}>BOOK NOW</label>
+                    {showModal && <BookingModal item={product} setShowModal={setShowModal} />}
                 </div>
 
                 {/* <!-- Preview Images Div For larger Screen--> */}

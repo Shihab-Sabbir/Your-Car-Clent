@@ -8,6 +8,7 @@ import CvcSvg from './CvcSvg.jsx';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { logOut } from '../../Utility/logout.js';
 
 const ELEMENT_OPTIONS = {
     style: {
@@ -33,7 +34,7 @@ function CheckoutForm({ price, id }) {
     const [processing, setProcessing] = useState(false)
     const [secret, setSecret] = useState('');
     const [errorMessage, setErrorMessage] = useState(null);
-    const { user } = useContext(AuthContext);
+    const { user, setUser } = useContext(AuthContext);
     const uid = user?.uid
     const navigate = useNavigate();
     useEffect(() => {
@@ -55,7 +56,12 @@ function CheckoutForm({ price, id }) {
                 authorization: `Bearer ${localStorage.getItem('your-car-token')}`
             },
             body: JSON.stringify({ txId, date, uid })
-        }).then(res => res.json()).then(data => {
+        }).then(res => {
+            if (res.status == 403) {
+                return logOut(user, setUser, navigate);
+            }
+            else { return res.json() }
+        }).then(data => {
             if (data.matchedCount) {
                 navigate('/dashboard/my-orders')
             }

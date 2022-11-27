@@ -7,10 +7,16 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import Logout from '../../pages/Logout/Logout';
 import { AuthContext } from '../../UserContext/UserContext';
 function DashboardSidebar({ toggle }) {
-
-    const { dark, setDark, user, dbUser } = useContext(AuthContext);
+    const { dark, setDark, user, dbUser, setDbUser } = useContext(AuthContext);
     const navigate = useNavigate();
-
+    useEffect(() => {
+        fetch(`https://your-car-server.vercel.app/user/${user?.uid}`)
+            .then(res => res.json())
+            .then(data => {
+                setDbUser(data)
+            })
+            .catch(err => { console.log(err) })
+    }, [user])
 
     function handleDark() {
         localStorage.setItem('your-car-theme', JSON.stringify(!dark));
@@ -37,7 +43,7 @@ function DashboardSidebar({ toggle }) {
                                 <NavLink to="/dashboard/all-sellers"
                                     end
                                     className={({ isActive }) => (isActive ? "active-class" : "non-active-class dark:non-active-class")}>All Sellers</NavLink>
-                                <NavLink to="/login"
+                                <NavLink to="/logout"
                                     end
                                     className={({ isActive }) => (isActive ? "active-class" : "non-active-class dark:non-active-class")}>Logout</NavLink>
                             </div>
@@ -51,7 +57,7 @@ function DashboardSidebar({ toggle }) {
                                 <NavLink to="/dashboard/my-wishlist"
                                     end
                                     className={({ isActive }) => (isActive ? "active-class" : "non-active-class dark:non-active-class")}>Wishlist</NavLink>
-                                <NavLink to="/login"
+                                <NavLink to="/logout"
                                     end
                                     className={({ isActive }) => (isActive ? "active-class" : "non-active-class dark:non-active-class")}>Logout</NavLink>
                             </div>
@@ -65,7 +71,7 @@ function DashboardSidebar({ toggle }) {
                                 <NavLink to="/dashboard/add-product"
                                     end
                                     className={({ isActive }) => (isActive ? "active-class" : "non-active-class dark:non-active-class")}>Add Product</NavLink>
-                                <NavLink to="/login"
+                                <NavLink to="/logout"
                                     end
                                     className={({ isActive }) => (isActive ? "active-class" : "non-active-class dark:non-active-class")}>Logout</NavLink>
                             </div>

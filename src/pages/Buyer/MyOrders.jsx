@@ -11,10 +11,11 @@ import toast from 'react-hot-toast';
 import { signOut } from 'firebase/auth';
 import axios from 'axios';
 import DataLoadingSpinner from '../../component/DataLoadingSpinner/DataLoadingSpinner';
+import { logOut } from '../../Utility/logout';
 function MyOrders() {
     const [orders, setOrders] = useState([]);
     const [dataLoading, setDataLoading] = useState(true);
-    const { user, loading, updateState, setUpdateState } = useContext(AuthContext);
+    const { user, loading, updateState, setUpdateState, setUser } = useContext(AuthContext);
     const navigate = useNavigate()
     useEffect(() => {
         axios.get(`https://your-car-server.vercel.app/my-orders/${user?.uid}`, {
@@ -24,6 +25,9 @@ function MyOrders() {
         }).then(res => { setOrders(res.data); setDataLoading(false) }).catch(err => {
             console.log(err);
             setDataLoading(false);
+            if (err.response.status == 403) {
+                logOut(user, setUser, navigate);
+            }
         })
 
     }, [updateState, loading, user])
@@ -41,16 +45,17 @@ function MyOrders() {
                 {
                     label: 'Yes',
                     onClick: () => {
-                        fetch(` https://assignment-11-five.vercel.app/order/${id}`, {
+                        setDataLoading(true)
+                        fetch(`https://your-car-server.vercel.app/detele-order/${id}`, {
                             method: 'DELETE'
                         }).then(res => res.json()).then(data => {
-                            if (data.deletedCount > 0) { toast.success('order deleted'); setUpdateState(!updateState); }
+                            if (data.deletedCount > 0) { toast.success('order deleted'); setUpdateState(!updateState); setDataLoading(false) }
                         });
                     }
                 },
                 {
                     label: 'No',
-                    onClick: () => { }
+                    onClick: () => { setDataLoading(false) }
                 }
             ]
         });
@@ -59,7 +64,7 @@ function MyOrders() {
     return (
         <div className='w-full lg:w-[1176px] p-2 mx-auto pt-10'>
             <Helmet>
-                <title>Smile - order</title>
+                <title>Your Car - Buyer Orders</title>
             </Helmet>
             <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
                 {(orders?.length > 0) ?

@@ -9,16 +9,17 @@ import UserTable from './UserTable';
 
 function AllSellers() {
     const [sellers, setSellers] = useState([]);
-    const [updateState, setUpdateState] = useState(false);
-    const { loading } = useContext(AuthContext);
+    const [dataLoading, setDataLoading] = useState(false);
+    const { loading, updateState, setUpdateState } = useContext(AuthContext);
 
     useEffect(() => {
+        setDataLoading(true)
         axios.get('https://your-car-server.vercel.app/users', {
             params: { role: 'seller' }
-        }).then(res => setSellers(res.data)).catch(err => console.log(err))
+        }).then(res => { setSellers(res.data); setDataLoading(false) }).catch(err => console.log(err))
     }, [updateState])
 
-    if (loading) {
+    if (loading || dataLoading) {
         return <DataLoadingSpinner />
     }
 

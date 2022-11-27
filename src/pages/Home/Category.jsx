@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { PhotoView } from 'react-photo-view';
+import DataLoadingSpinner from '../../component/DataLoadingSpinner/DataLoadingSpinner';
 function Category() {
     const { isLoading, error, data } = useQuery({
         queryKey: ['category'],
@@ -10,7 +11,7 @@ function Category() {
                 res.json()
             )
     })
-    if (isLoading) return 'Loading...'
+    if (isLoading) return <DataLoadingSpinner />
 
     if (error) return 'An error has occurred: ' + error.message;
 

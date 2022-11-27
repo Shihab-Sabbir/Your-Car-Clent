@@ -11,6 +11,8 @@ import { useContext } from 'react';
 import { AuthContext } from '../../UserContext/UserContext';
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { Helmet } from 'react-helmet';
+import DataLoadingSpinner from '../../component/DataLoadingSpinner/DataLoadingSpinner';
 
 function Wishlist() {
     const { user } = useContext(AuthContext);
@@ -36,12 +38,15 @@ function Wishlist() {
         axios.delete(`https://your-car-server.vercel.app/wishlist/${id}`).then(data => { toast.success(data.data); setReload(!reload); setLoading(false) }).catch(err => { console.log(err); setLoading(false) })
     }
 
-    if (isLoading || loading) return 'Loading...'
+    if (isLoading || loading) return <DataLoadingSpinner/>
 
     if (error) return 'An error has occurred: ' + error.message;
 
     if (data.length === 0) {
         return <div className='flex justify-center items-center'>
+            <Helmet>
+                <title>Your Car - Wishlist</title>
+            </Helmet>
             <p className='text-2xl text-center font-bold capitalize'>No Item is in WishList</p>
         </div>
     }
@@ -50,6 +55,9 @@ function Wishlist() {
     return (
         <div>
             <div className='flex justify-center items-center'>
+                <Helmet>
+                    <title>Your Car - Wishlist</title>
+                </Helmet>
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
                     {
                         data?.map(item =>

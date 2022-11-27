@@ -27,10 +27,10 @@ function UserContext({ children }) {
     useEffect(() => {
         fetch(`https://your-car-server.vercel.app/user/${user?.uid}`)
             .then(res => res.json())
-            .then(data => { setDbUser(data) })
+            .then(data => {
+                setDbUser(data)})
             .catch(err => { console.log(err) })
     }, [user])
-
     function handleSearch(e) {
         e.preventDefault();
         setSearch(e.target.search.value);

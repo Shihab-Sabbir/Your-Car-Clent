@@ -22,6 +22,7 @@ function DisplayProducts({ data }) {
     const [showModal, setShowModal] = useState(false)
 
     useEffect(() => {
+        window.scrollTo(0, 0)
         axios.get(`https://your-car-server.vercel.app/users?role=seller`).then(data => { setsellers(data.data); setLoading(false) }).catch(err => { console.log(err); setLoading(false) })
         axios.get(`https://your-car-server.vercel.app/wishlist/${user?.uid}`).then(data => { setWishList(data.data); setLoading(false) }).catch(err => { console.log(err); setLoading(false) })
     }, [user, reload])

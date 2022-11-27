@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../UserContext/UserContext';
 import { Helmet } from "react-helmet";
-import { PhotoView } from 'react-photo-view';
 import { Dropdown, Pagination } from 'flowbite-react';
 import DataLoadingSpinner from '../../component/DataLoadingSpinner/DataLoadingSpinner'
 import DisplayProducts from '../../component/DisplayProducts/DisplayProducts';
@@ -16,6 +15,7 @@ function Search() {
     const pageSize = Math.ceil(dataLength / limit);
     const navigate = useNavigate();
     useEffect(() => {
+        window.scrollTo(0, 0)
         if (search?.length === 0) {
             return navigate('/');
         }

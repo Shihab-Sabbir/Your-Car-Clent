@@ -8,7 +8,7 @@ function Profile() {
     return (
         <div className='flex justify-center items-center lg:items-start pt-3 lg:pt-8 lg:min-h-screen dark:bg-slate-500'>
             <Helmet>
-                <title>Smile - User profile</title>
+                <title>Your Car - User profile</title>
             </Helmet>
             {loading ||
                 <div className='flex lg:flex-row flex-col items-center justify-evenly gap-10'>
