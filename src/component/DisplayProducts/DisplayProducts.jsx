@@ -10,6 +10,8 @@ import toast from 'react-hot-toast';
 import { useContext } from 'react';
 import { AuthContext } from '../../UserContext/UserContext';
 import DataLoadingSpinner from '../../component/DataLoadingSpinner/DataLoadingSpinner';
+import { Link } from 'react-router-dom';
+import { PhotoView } from 'react-photo-view';
 
 function DisplayProducts({ data }) {
     const [sellers, setsellers] = useState(null);
@@ -46,7 +48,9 @@ function DisplayProducts({ data }) {
                         data?.map(item =>
                             <div key={item._id} className='w-[320px]'>
                                 <div className='border relative'>
-                                    <img src={item.image} className='w-[300px] h-[250px]' alt="" />
+                                    <PhotoView src={item.image}>
+                                        <img src={item.image} className='w-[300px] h-[250px] cursor-zoom-in' alt="" />
+                                    </PhotoView>
                                     <button className='absolute top-2 text-2xl right-2' onClick={() => handleWishlist(item, item._id, user?.uid)}>  <AiFillHeart className={wishList?.find(data => data.carId == item._id) ? 'text-2xl text-red-600' : 'text-2xl text-amber-400'} /></button>
                                     <div className='p-2 bg-slate-200 dark:bg-slate-800'>
                                         <div className='flex items-center justify-between'>
@@ -68,7 +72,7 @@ function DisplayProducts({ data }) {
                                                 } years used</p>
                                         </div>
                                         <div className='flex items-center justify-between'>
-                                            <div className='flex items-center gap-1'>
+                                            <div className='flex items-center gap-2'>
                                                 <p className='capitalize my-2'>
                                                     Seller : {item?.sellerName}
                                                 </p>
@@ -88,11 +92,12 @@ function DisplayProducts({ data }) {
                                                 </p>
                                             </div>
                                         </div>
-                                        <div className='flex justify-between'>
+                                        <div className='flex justify-between items-center'>
                                             <label
                                                 htmlFor="booking-modal"
                                                 className='my-2 btn btn-sm bg-amber-400 border-0 text-slate-100 shadow-md dark:hover:border-white dark:hover:border' onClick={handleOrder}>Book now</label>
                                             {showModal && <BookingModal item={item} setShowModal={setShowModal} />}
+                                            <Link to={`/product-details/${item._id}`} className='text-amber-300' >Details</Link>
                                         </div>
                                     </div>
                                 </div>

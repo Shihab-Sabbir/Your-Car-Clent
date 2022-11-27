@@ -1,26 +1,30 @@
-# Smile Dental Service
+# Your Car
 
-To Explore Live Site please Click , [Live Here](https://assignment-11-7d832.web.app)
+##### Used Cars Resale Shop
+
+To Explore Live Site please Click , [Live Here](https://your-car-84ede.web.app/)
 
 > ###### Site is Deployed in Firebase.com
 
 ## Features
 
-- Manual and third-party (google and github) login using firebase aunthentication.
-- User password Retriving in case of nessecity.
+- Independent dashboard for admin, seller and buyer.
+- Admin can verify a seller , can remove seller or buyer.
+- Seller can add products.
+- Buyer can buy products or add products in own wishlist.
+- Buyer can pay for product using Stripe payment gateway.
+- Manual and social login using Firebase authentication.
+- User password Retrieving in case of necessity.
 - Image zoom view.
-- Jwt verification support.
-- Protected review and service add route.
-- Review and new service add facility.
+- JWT verification support.
+- Protected private route and admin route.
 - Pagination facility.
-- Dynamic title
+- Dynamic title.
 - Effective search method.
 - Smooth routing system.
 - Dark and Light theme implemented.
-- Local-Storage used to hold the user's selected theme.
-- Errorpage assistance in case of fault.
-- Responsive UI for Desktop , Tablet and small devices like mobile.
-- User frindly UI.
+- Error page assistance in case of fault.
+- Responsive and user friendly UI for Desktop, Tablet and small devices like mobile.
 - A sort and simple but effective Q&A section.
 
 ### `Notable Used Technology`
@@ -28,15 +32,15 @@ To Explore Live Site please Click , [Live Here](https://assignment-11-7d832.web.
 - React JS
 - React Router
 - React Context API
+- React-stripe-js
+- React-query
+- Axios
 - React Tailwind CSS (Flowbite)
 - React Hot-toast
 - React Confirm-alert
 - React-helmet
-- React-to-pdf
 - React Photo-view
 - React Icons
 - Firebase Auntentication
 - Jwt Verification
 - Local-Storage
-# b612-used-products-resale-clients-side-Shihab-Sabbir
-# b612-used-products-resale-clients-side-Shihab-Sabbir

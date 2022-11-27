@@ -56,7 +56,7 @@ function Search() {
             <Helmet>
                 <title>Your Car - Search</title>
             </Helmet>
-            <div className="w-full lg:w-[1200px] mx-auto container">
+            <div className="w-full lg:w-[1600px] mx-auto container">
                 <div className='my-5 flex justify-end mr-5'>
                     <Dropdown
                         label="Select Page Size"

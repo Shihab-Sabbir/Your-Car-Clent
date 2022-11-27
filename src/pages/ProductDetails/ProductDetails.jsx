@@ -4,7 +4,8 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import DataLoadingSpinner from '../../component/DataLoadingSpinner/DataLoadingSpinner';
-
+import Advertise from '../Home/Advertise';
+import { PhotoView } from 'react-photo-view';
 function ProductDetails() {
     const [product, setProduct] = useState({});
     const [loading, setLoading] = useState(true);
@@ -17,7 +18,7 @@ function ProductDetails() {
     const cartHandle = () => { }
     if (loading) return <DataLoadingSpinner />
     return (
-        <div className='p-1 lg:p-4 flex justify-center items-center mt-10 lg:mt-18'>
+        <div className='p-1 lg:p-4 mx-auto w-full mt-10 lg:mt-18'>
             <div className="flex justify-center items-center lg:flex-row-reverse flex-col gap-8">
                 <div className="  w-full sm:w-96 md:w-8/12 lg:w-6/12 items-center">
                     <p className=" focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 font-normal text-base leading-4 text-gray-600 dark:text-gray-200">Home / {category} / {name}</p>
@@ -78,20 +79,31 @@ function ProductDetails() {
 
                 <div className=" w-full sm:w-96 md:w-8/12  lg:w-6/12 flex lg:flex-row-reverse flex-col lg:gap-8 sm:gap-6 gap-4">
                     <div className=" w-full lg:w-8/12  flex justify-center items-center">
-                        <img src={image} alt="" />
+                        <PhotoView src={image}>
+                            <img src={image} className='cursor-zoom-in' alt="" />
+                        </PhotoView>
                     </div>
                     <div className=" w-full lg:w-4/12 grid lg:grid-cols-1 sm:grid-cols-4 grid-cols-2 gap-6">
                         <div className="bg-gray-100 flex justify-center items-center py-4">
-                            <img src={image} alt="" />
+                            <PhotoView src={image}>
+                                <img src={image} className='cursor-zoom-in' alt="" />
+                            </PhotoView>
                         </div>
                         <div className="bg-gray-100 flex justify-center items-center py-4">
-                            <img src={image} alt="" />
+                            <PhotoView src={image}>
+                                <img src={image} className='cursor-zoom-in' alt="" />
+                            </PhotoView>
                         </div>
                         <div className="bg-gray-100 flex justify-center items-center py-4">
-                            <img src={image} alt="" />
+                            <PhotoView src={image}>
+                                <img src={image} className='cursor-zoom-in' alt="" />
+                            </PhotoView>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div className='mt-10 lg:mt-20'>
+                <Advertise />
             </div>
         </div>
     )

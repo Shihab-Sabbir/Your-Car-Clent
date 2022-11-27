@@ -1,10 +1,8 @@
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import axios from 'axios';
 import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
-import toast from 'react-hot-toast';
 import { useLocation, useNavigate } from 'react-router-dom';
 import CheckoutForm from './CheckoutForm';
 

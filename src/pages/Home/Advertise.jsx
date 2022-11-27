@@ -33,7 +33,7 @@ function Advertise() {
                                 <div className='w-full flex items-center justify-between flex-col md:flex-row'>
                                     <div className='md:w-[50%] min-h-[130px] flex md:flex-col justify-evenly md:justify-between item-center md:items-start' data-aos="zoom-in-right" data-aos-duration="1000">
                                         <p className='text-black md:block hidden font-bold text-xl md:text-2xl lg:text-4xl 2xl:text-5xl capitalize'>{item.name}</p>
-                                        <img src={item.image} className='w-[50%] md:h-[300px] md:w-full md:max-h-full' alt="" />
+                                        <img src={item.image} className='w-[50%] h-[130px] md:h-[300px] md:w-full max-h-full' alt="" />
                                         <div className='flex flex-col gap-3 justify-center md:hidden'>
                                             <p className='text-black font-bold text-lg md:text-2xl lg:text-4xl 2xl:text-5xl capitalize'>{item.name}</p>
                                             <p className='text-black font-serif text-2xl'>${item.resalePrice}</p>
