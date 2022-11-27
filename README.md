@@ -6,6 +6,12 @@ To Explore Live Site please Click , [Live Here](https://your-car-84ede.web.app/)
 
 > ###### Site is Deployed in Firebase.com
 
+Admin Info :
+
+> ###### E-mail : admin@your-car.com
+>
+> ###### Password : 123654
+
 ## Features
 
 - Independent dashboard for admin, seller and buyer.
