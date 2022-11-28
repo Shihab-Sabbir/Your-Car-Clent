@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import logo from '../../asset/logo.png'
+import logo from '../../asset/logo2.png'
 import { MdOutlineLightMode, MdOutlineDarkMode } from 'react-icons/md';
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../UserContext/UserContext";
@@ -37,10 +37,10 @@ export default function Header() {
         <div className="2xl:container 2xl:mx-auto">
             <div className="bg-gray-100 dark:bg-gray-900 rounded py-2 px-4 lg:px-2">
                 <nav className="flex justify-between">
-                    <Link to='/' className="flex items-center space-x-3 lg:pr-16 pr-6">
-                        <img src={logo} alt="" />
+                    <Link to='/' className="flex items-center space-x-3 w-full lg:pr-16 pr-6">
+                        <img src={logo} className='w-[90px] md:w-[110px] md:h-[80px]' alt="" />
                     </Link>
-                    <ul className="hidden md:flex flex-auto h-fit pt-4 space-x-2">
+                    <ul className="hidden md:flex flex-auto h-fit pt-6 space-x-2">
                         <Link to='/'>
                             <li onClick={() => selected(0)} className={`${style[0] ? 'text-white bg-amber-400' : 'text-gray-600 border border-white bg-gray-50'}  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800  cursor-pointer px-3 py-2.5 font-normal text-xs leading-3 shadow-md rounded`}>Home</li>
                         </Link>
