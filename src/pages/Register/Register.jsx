@@ -13,7 +13,7 @@ import DataLoadingSpinner from '../../component/DataLoadingSpinner/DataLoadingSp
 function Register() {
     window.scrollTo(0, 0)
     const auth = getAuth(app);
-    const { setUser, setLoading, loading } = useContext(AuthContext);
+    const { setUser, setLoading, loading, setDbUser } = useContext(AuthContext);
     const location = useLocation();
     const navigate = useNavigate();
     const from = location.state?.from?.pathname || '/';

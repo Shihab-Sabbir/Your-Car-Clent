@@ -63,6 +63,7 @@ function CheckoutForm({ price, id }) {
             else { return res.json() }
         }).then(data => {
             if (data.matchedCount) {
+                setUpdateState(!updateState)
                 navigate('/dashboard/my-orders')
             }
         }).catch(err => console.log(err));
@@ -109,6 +110,7 @@ function CheckoutForm({ price, id }) {
                 elements.getElement(CardNumberElement).clear();
                 elements.getElement(CardCvcElement).clear();
                 elements.getElement(CardExpiryElement).clear();
+                setUpdateState(!updateState)
                 toast.success(`Payment successful , Transection Id : ${paymentIntent?.id} , Please Reload before next payment`);
                 navigate('/dashboard/my-orders')
                 setProcessing(false);

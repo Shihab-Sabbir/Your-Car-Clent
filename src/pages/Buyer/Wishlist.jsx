@@ -14,14 +14,14 @@ import { Helmet } from 'react-helmet';
 import DataLoadingSpinner from '../../component/DataLoadingSpinner/DataLoadingSpinner';
 
 function Wishlist() {
-    const { user } = useContext(AuthContext);
+    const { user, updateState } = useContext(AuthContext);
     const [sellers, setsellers] = useState(null);
     const [loading, setLoading] = useState(true);
     const [reload, setReload] = useState(true);
     const [showModal, setShowModal] = useState(false)
 
     const { isLoading, error, data } = useQuery({
-        queryKey: ['category', user, reload],
+        queryKey: ['category', user, reload, updateState],
         queryFn: () =>
             fetch(`https://your-car-server.vercel.app/wishlist/${user?.uid}`).then(res =>
                 res.json()
@@ -37,7 +37,7 @@ function Wishlist() {
         axios.delete(`https://your-car-server.vercel.app/wishlist/${id}`).then(data => { toast.success(data.data); setReload(!reload); setLoading(false) }).catch(err => { console.log(err); setLoading(false) })
     }
 
-    if (isLoading || loading) return <DataLoadingSpinner/>
+    if (isLoading) return <DataLoadingSpinner />
 
     if (error) return 'An error has occurred: ' + error.message;
 

@@ -13,10 +13,11 @@ import DataLoadingSpinner from '../../component/DataLoadingSpinner/DataLoadingSp
 import { logOut } from '../../Utility/logout';
 function MyOrders() {
     const [orders, setOrders] = useState([]);
-    const [dataLoading, setDataLoading] = useState(true);
+    const [dataLoading, setDataLoading] = useState(false);
     const { user, loading, updateState, setUpdateState, setUser, setDbUser } = useContext(AuthContext);
     const navigate = useNavigate()
     useEffect(() => {
+        setDataLoading(true)
         axios.get(`https://your-car-server.vercel.app/my-orders/${user?.uid}`, {
             headers: {
                 authorization: `Bearer ${localStorage.getItem('your-car-token')}`
@@ -131,7 +132,7 @@ function MyOrders() {
                                                 {order.sold == true ? <div className='text-center' >
                                                     {order.payBy === user?.uid ? <div className='flex flex-col gap-2'>
                                                         <p className='bg-amber-300 btn btn-xs border-0 text-black '>PAID</p>
-                                                        <button className='' onClick={() => handlePaymentDetails(order.txId, order.date)}>Paymeny Info</button>
+                                                        <button className='' onClick={() => handlePaymentDetails(order.txId, order.date)}>Payment Info</button>
                                                     </div> : "ALREADY SOLD"}
                                                 </div>
                                                     :

@@ -14,6 +14,7 @@ function UserContext({ children }) {
     const [search, setSearch] = useState('');
     const auth = getAuth(app);
     const userinfo = { dark, setDark, user, setUser, loading, setLoading, updateState, setUpdateState, handleSearch, search, auth, dbUser, setDbUser };
+    
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
@@ -32,6 +33,7 @@ function UserContext({ children }) {
             })
             .catch(err => { console.log(err) })
     }, [user])
+
     function handleSearch(e) {
         e.preventDefault();
         setSearch(e.target.search.value);

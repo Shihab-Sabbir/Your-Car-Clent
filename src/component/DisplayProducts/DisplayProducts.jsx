@@ -46,7 +46,7 @@ function DisplayProducts({ data }) {
     }
 
     const handleReport = (id) => {
-        if (dbUser.role !== 'buyer') { toast.error('Only buyer can add wish items') }
+        if (dbUser.role !== 'buyer') { toast.error('Only buyer can report to admin') }
         else {
             setLoading(true)
             axios.patch(`https://your-car-server.vercel.app/report/${id}`, {}, {
