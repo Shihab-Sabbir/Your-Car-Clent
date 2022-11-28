@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import logo from '../../asset/logo2.png'
 import { MdOutlineLightMode, MdOutlineDarkMode } from 'react-icons/md';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../UserContext/UserContext";
 import { useContext } from "react";
 import SearchModal from "../../component/SearchModal/SearchModal";
@@ -32,6 +32,11 @@ export default function Header() {
         setText(txt);
         setDropDown(true);
     }
+    const activeStyle =
+        'text-white bg-amber-400 focus:outline-none cursor-pointer px-3 py-2.5 font-normal text-xs leading-3 shadow-md rounded h-[31px]'
+
+    const nonActiveStyle =
+        'text-gray-600 border border-white bg-gray-50  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800  cursor-pointer px-3 py-2.5 font-normal text-xs leading-3 shadow-md rounded'
 
     return (
         <div className="2xl:container 2xl:mx-auto">
@@ -41,27 +46,72 @@ export default function Header() {
                         <img src={logo} className='w-[90px] md:w-[110px] md:h-[80px]' alt="" />
                     </Link>
                     <ul className="hidden md:flex flex-auto h-fit pt-6 space-x-2">
-                        <Link to='/'>
-                            <li onClick={() => selected(0)} className={`${style[0] ? 'text-white bg-amber-400' : 'text-gray-600 border border-white bg-gray-50'}  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800  cursor-pointer px-3 py-2.5 font-normal text-xs leading-3 shadow-md rounded`}>Home</li>
-                        </Link>
-                        <Link to='/all-products'>
-                            <li onClick={() => selected(1)} className={`${style[1] ? 'text-white bg-amber-400' : 'text-gray-600 border border-white bg-gray-50'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 cursor-pointer px-3 py-2.5 font-normal text-xs leading-3 shadow-md rounded`}>Products</li>
-                        </Link>
-                        <Link to='/dashboard'>
-                            <li onClick={() => selected(2)} className={`${style[2] ? 'text-white bg-amber-400' : 'text-gray-600 border border-white bg-gray-50'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 cursor-pointer px-3 py-2.5 font-normal text-xs leading-3 shadow-md rounded`}>Dashboard</li>
-                        </Link>
-                        <Link to='/blog'>
-                            <li onClick={() => selected(3)} className={`${style[3] ? 'text-white bg-amber-400' : 'text-gray-600 border border-white bg-gray-50'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 cursor-pointer px-3 py-2.5 font-normal text-xs leading-3 shadow-md rounded`}>Blog</li>
-                        </Link>
-                        {!user?.uid && <Link to='/login'>
-                            <li onClick={() => selected(4)} className={`${style[4] ? 'text-white bg-amber-400' : 'text-gray-600 border border-white bg-gray-50'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 cursor-pointer px-3 py-2.5 font-normal text-xs leading-3 shadow-md rounded`}>Login</li>
-                        </Link>}
-                        {user?.uid && <Link to='/logout'>
-                            <li onClick={() => selected(4)} className={`${style[4] ? 'text-white bg-amber-400' : 'text-gray-600 border border-white bg-gray-50'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 cursor-pointer px-3 py-2.5 font-normal text-xs leading-3 shadow-md rounded`}>Logout</li>
-                        </Link>}
-                        <Link to='/'>
-                            <li onClick={() => selected(5)} className={`${style[5] ? 'text-white bg-amber-400' : 'text-gray-600 border border-white bg-gray-50'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 cursor-pointer px-3 py-2.5 font-normal text-xs leading-3 shadow-md rounded`}>Contact</li>
-                        </Link>
+                        <NavLink
+                            to="/"
+                            end
+                            className={({ isActive }) =>
+                                isActive ? activeStyle : nonActiveStyle
+                            }
+                        >
+                            Home
+                        </NavLink>
+                        <NavLink
+                            to="/all-products"
+                            end
+                            className={({ isActive }) =>
+                                isActive ? activeStyle : nonActiveStyle
+                            }
+                        >
+                            Products
+                        </NavLink>
+                        <NavLink
+                            to="/dashboard"
+                            end
+                            className={({ isActive }) =>
+                                isActive ? activeStyle : nonActiveStyle
+                            }
+                        >
+                            Dashboard
+                        </NavLink>
+                        {/* <NavLink to='/blog' className=" text-white bg-amber-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 cursor-pointer px-3 py-2.5 font-normal text-xs leading-3 shadow-md rounded">
+                            <li onClick={() => selected(3)} className={`${style[3] ? '' : ''} `}>Blog</li>
+                        </NavLink> */}
+                        <NavLink
+                            to="/blog"
+                            end
+                            className={({ isActive }) =>
+                                isActive ? activeStyle : nonActiveStyle
+                            }
+                        >
+                            Blog
+                        </NavLink>
+                        {!user?.uid && <NavLink
+                            to="/login"
+                            end
+                            className={({ isActive }) =>
+                                isActive ? activeStyle : nonActiveStyle
+                            }
+                        >
+                            Login
+                        </NavLink>}
+                        {user?.uid && <NavLink
+                            to="/logout"
+                            end
+                            className={({ isActive }) =>
+                                isActive ? activeStyle : nonActiveStyle
+                            }
+                        >
+                            Logout
+                        </NavLink>}
+                        <NavLink
+                            to="/contact"
+                            end
+                            className={({ isActive }) =>
+                                isActive ? activeStyle : nonActiveStyle
+                            }
+                        >
+                            Contact
+                        </NavLink>
                     </ul>
                     <div className=" flex space-x-5 justify-center items-center pl-2">
                         <label htmlFor="search-modal" >
