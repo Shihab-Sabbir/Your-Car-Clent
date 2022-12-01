@@ -8,9 +8,9 @@ To Explore Live Site please Click , [Live Here](https://your-car-84ede.web.app/)
 
 Admin Info :
 
-##### adminEmail: admin@your-car.com
+##### adminEmail: Hidden due to privacy
 
-##### adminPassword: 123654
+##### adminPassword: Hidden due to privacy
 
 ## Features
 
