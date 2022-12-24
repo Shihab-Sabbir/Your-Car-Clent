@@ -15,7 +15,7 @@ Admin Info :
 ## Features
 
 - Independent dashboard for admin, seller and buyer.
-- Admin can verify a seller , can remove seller or buyer.
+- Admin can verify a seller , can remove any seller or buyer.
 - Seller can add product and remove his product.
 - Buyer can buy products or add products in own wishlist and can remove item from order and wish list.
 - Buyer can pay for product using Stripe payment gateway.
